@@ -7,4 +7,4 @@ deployment:
     - /bin/cp package.json
     - /bin/cp .cpanel.yml
     - /bin/cp -R private $DEPLOYPATH
-    - /bin/cp -R HogoshaJudo/public $DEPLOYPATH
+    - /bin/cp -R public $DEPLOYPATH
