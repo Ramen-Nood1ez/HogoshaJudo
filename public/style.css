@@ -1,0 +1,155 @@
+:root {
+    --main-bg-color: #121212;
+	--secondary-bg-color: white;
+    --primary-color: #BB86FC;
+    --primary-color-variant: #3700B3;
+    --primary-variant-hover: #3f02ce;
+    --secondary-color: #03DAC5;
+    --error-color: #CF6679;
+}
+
+a, a:visited {
+    background-color: var(--primary-color-variant, royalblue);
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: solid;
+    display: inline-block;
+    border: 0.5px solid black;
+}
+
+.primary {
+    color: var(--primary-color);
+}
+
+.primary_variant {
+    color: var(--primary-color-variant);
+}
+
+.secondary {
+    color: var(--secondary-color);
+}
+
+.error {
+    background-color: var(--error-color);
+    color: black;
+}
+
+a:hover {
+    background-color: var(--primary-variant-hover, cornflowerblue);
+}
+
+#inst1 {
+	border: 5px solid var(--secondary-color);
+}
+
+.container {
+	display: flex;
+}
+
+p, h1 {
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	color: var(--primary-color);
+}
+
+div p {
+	margin-top: 15px;
+  	margin-bottom: 15px;
+  	margin-right: 150px;
+	margin-left: 80px;
+}
+
+body, html {
+	background-color: var(--main-bg-color);
+	color: var(--primary-color);
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+figure, figure p {
+	padding: 0px;
+	background: #eee;
+	border-radius: 5px;
+	width: fit-content;
+	font-size: x-large;
+	margin: 0 auto;
+	text-align: center;
+	color: var(--primary-color-variant);
+}
+
+b {
+	color: coral;
+}
+
+.strikeout {
+	color: var(--primary-color);
+	line-height: 1px;
+	position: relative;
+}
+
+.thr {
+	width: 75%;
+	margin: 1 auto;
+}
+
+.strikeout::after {
+	border-bottom: 0.15em solid red;
+	content: "";
+	left: 0;
+	margin-top: calc(0.125em / 2 * -1);
+	position: absolute;
+	right: 0;
+	top: 50%;
+}
+
+.normlink {
+	background-color: revert !important;
+    color: var(--primary-color) !important;
+	padding: revert;
+    text-align: revert;
+    text-decoration: revert;
+    display: revert;
+    border: revert;
+}
+
+.photosimg {
+	width: 100%;
+	max-width: 600px;
+}
+
+/* Add a black background color to the top navigation */
+.topnav {
+	background-color: var(--main-bg-color);
+	overflow: hidden;
+}
+  
+/* Style the links inside the navigation bar */
+.topnav a {
+	float: left;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+}
+  
+/* Change the color of links on hover */
+.topnav a:hover {
+	background-color: var(--primary-variant-hover);
+}
+  
+/* Add a color to the active/current link */
+.topnav a.active {
+	background-color: #04AA6D;
+	color: white;
+}
+
+.parallax {
+	/*background-image: url("images/Hiki-otoshi.jpg");*/
+
+	min-height: 600px;
+
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}

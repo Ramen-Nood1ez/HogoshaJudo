@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">  
+		<link rel="stylesheet" href="style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://kit.fontawesome.com/8e00593c4c.js" crossorigin="anonymous"></script>
+		<script> 
+			$(function(){
+			  $("#includedContent").load("navbar.html"); 
+			});
+		</script>
+		<title>Hogosha Judo</title>
+	</head>
+	<body>
+		<div id="includedContent" class="topnav"></div>
+		
+		<form action="fileupload" method="POST" enctype="multipart/form-data">
+			<input type="file" name="filetoupload">
+			<br>
+			<input type="text" name="desc" placeholder="Image Description">
+			<br>
+			<input type="number" name="date" placeholder="Year image was taken">
+			<br>
+			<input type="submit">
+		</form>
+	</body>
+</html>
