@@ -1,0 +1,9 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/hogoshaj/hogoshajudo.org/administrator/hogoshajudo/
+    - /bin/cp app.js
+    - /bin/cp package-lock.json
+    - /bin/cp package.json
+    - /bin/cp -R private $DEPLOYPATH
+    - /bin/cp -R public $DEPLOYPATH
