@@ -41,10 +41,6 @@ app.get("/contact", (req, res) => {
 	res.sendFile(path.join(__dirname, 'public/contact.html'))
 })
 
-app.get("/facebook", (req, res) => {
-	res.sendFile(path.join(__dirname, 'public/facebook.html'))
-})
-
 app.post('/fileupload', (req, res) => {
 	const directoryPath = path.join(__dirname, 'public/addimage.html')
 	var form = new formidable.IncomingForm()
