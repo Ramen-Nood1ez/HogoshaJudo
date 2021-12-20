@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">  
+		<link rel="stylesheet" href="style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://kit.fontawesome.com/8e00593c4c.js" crossorigin="anonymous"></script>
+		<script> 
+			$(function(){
+			  $("#includedContent").load("navbar.html"); 
+			});
+		</script> 
+		<title>Hogosha Judo</title>
+	</head>
+	<body style="text-align: center;">
+		<div id="includedContent" class="topnav"></div>
+		<h1>Subscribe to the Hogosha Judo Mail List</h1>
+		<h4>After you subscribe, you'll be added shortly</h4>
+
+		<input type="email" id="email" placeholder="example@example.com">
+		<input type="submit" value="subscribe" onclick="submitdata()">
+	</body>
+
+	<script>
+		function submitdata() {
+			window.location.href = `/subscribed?email=${document.getElementById("email").value}`
+		}
+	</script>
+</html>

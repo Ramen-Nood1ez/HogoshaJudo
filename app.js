@@ -41,6 +41,29 @@ app.get("/contact", (req, res) => {
 	res.sendFile(path.join(__dirname, 'public/contact.html'))
 })
 
+app.get("/subscribe", (req, res) => {
+	res.sendFile(path.join(__dirname, 'public/subscribe.html'))
+})
+
+app.get('/subscribed', (req, res) => {
+	var email = req.query.email
+	console.log(email)
+	fs.readFile("private/pending_emails.txt", (err, data) => {
+		if (data.toString().includes(email)) {
+			res.send("<h1>That Email Already Exists!</h1>")
+		}
+		else {
+			fs.appendFile("private/pending_emails.txt", `${email}\n`, (err) => {
+				if (err) {
+					console.error("Help!")
+				}
+			})
+			res.sendFile(path.join(__dirname, "public/subscribe.html"))
+		}
+	})
+	
+})
+
 app.post('/fileupload', (req, res) => {
 	const directoryPath = path.join(__dirname, 'public/addimage.html')
 	var form = new formidable.IncomingForm()
@@ -92,6 +115,10 @@ app.post('/fileupload', (req, res) => {
 
 		res.write('<br><meta http-equiv="refresh" content="3;url=/addimage.html" />')
 	})
+})
+
+app.get('*', function(req, res) {
+	res.status(404).sendFile(path.join(__dirname, 'public/errors/404.html'))
 })
 
 app.listen(port, () => {

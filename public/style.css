@@ -1,11 +1,11 @@
 :root {
-    --main-bg-color: #121212;
-	--secondary-bg-color: white;
-    --primary-color: #BB86FC;
-    --primary-color-variant: #3700B3;
-    --primary-variant-hover: #3f02ce;
-    --secondary-color: #03DAC5;
-    --error-color: #CF6679;
+    --main-bg-color: #0e151a; /* #121212 */
+	--secondary-bg-color: #ffffff; /* #ffffff */
+    --primary-color: #6290b3; /* #BB86FC */
+    --primary-color-variant: #7da0c0; /* #3700B3 */
+    --primary-variant-hover: #a2aeba; /* #3f02ce */
+    --secondary-color: #7dc0bc; /* #03DAC5 */
+    --error-color: #c07d7d; /* #CF6679 */
 }
 
 a, a:visited {
@@ -143,13 +143,15 @@ b {
 	color: white;
 }
 
-.parallax {
-	/*background-image: url("images/Hiki-otoshi.jpg");*/
+@media (min-width: 800px) {
+	.parallax {
+		/*background-image: url("images/Hiki-otoshi.jpg");*/
 
-	min-height: 600px;
+		min-height: 600px;
 
-	background-attachment: fixed;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
+		background-attachment: fixed;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
 }
