@@ -43,10 +43,6 @@ a:hover {
 	border: 5px solid var(--secondary-color);
 }
 
-.container {
-	display: flex;
-}
-
 p, h1 {
 	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 	color: var(--primary-color);
@@ -144,14 +140,83 @@ b {
 }
 
 @media (min-width: 800px) {
+	.regimg {
+		width: auto;
+		height: auto;
+	}
+	.logo {
+		object-fit: cover; 
+		object-position: 90% 10%;
+	}
 	.parallax {
 		/*background-image: url("images/Hiki-otoshi.jpg");*/
-
+	
 		min-height: 600px;
-
+		min-width: 100%;
+	
 		background-attachment: fixed;
 		background-position: center;
 		background-repeat: no-repeat;
-		background-size: cover;
+		background-size: 100%;
+	}
+	.container {
+		display: flex;
+	}
+	.calander {
+		width: 75%;
+		height: 600px;
+		border: solid 1px #777;
+	}
+	
+	.events {
+		width: 25%;
+		height: 600px;
+		border: solid 1px #777;
+	}
+	.hideonvertical {
+		visibility: hidden;
+	}
+}
+
+@media (max-width: 800px) {
+	.regimg {
+		width: 100%;
+		height: auto;
+		padding-right: 10px;
+	}
+	.logo {
+		object-fit: cover; 
+		object-position: 90% 10%;
+		width: 50%;
+		height: 50%;
+	}
+	.parallax {
+		/*background-image: url("images/Hiki-otoshi.jpg");*/
+	
+		min-height: 150px;
+		min-width: 100%;
+	
+		background-attachment: fixed;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 100%;
+	}
+	.container {
+		display: inline;
+	}
+	.calander {
+		width: max-content;
+		height: 600px;
+		border: solid 1px #777;
+	}
+	
+	.events {
+		visibility: hidden;
+		width: fit-content;
+		height: 600px;
+		border: solid 1px #777;
+	}
+	.hideonvertical {
+		visibility: visible;
 	}
 }
