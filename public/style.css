@@ -139,6 +139,13 @@ b {
 	color: white;
 }
 
+.eventmessage div img{
+	src: url("images/happyholidays.png");
+	background-repeat: no-repeat;
+	height: 100%;
+	margin: 0 auto;
+}
+
 @media (min-width: 800px) {
 	.regimg {
 		width: auto;
