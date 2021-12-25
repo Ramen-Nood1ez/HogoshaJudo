@@ -6,6 +6,8 @@
     --primary-variant-hover: #a2aeba; /* #3f02ce */
     --secondary-color: #7dc0bc; /* #03DAC5 */
     --error-color: #c07d7d; /* #CF6679 */
+	--light-mode-color: white;
+	--light-mode-color-variant: var(--primary-variant-hover);
 }
 
 a, a:visited {
@@ -118,16 +120,6 @@ b {
 	overflow: hidden;
 }
   
-/* Style the links inside the navigation bar */
-.topnav a {
-	float: left;
-	color: #f2f2f2;
-	text-align: center;
-	padding: 14px 16px;
-	text-decoration: none;
-	font-size: 17px;
-}
-  
 /* Change the color of links on hover */
 .topnav a:hover {
 	background-color: var(--primary-variant-hover);
@@ -139,14 +131,12 @@ b {
 	color: white;
 }
 
-.eventmessage div img{
-	src: url("images/happyholidays.png");
-	background-repeat: no-repeat;
-	height: 100%;
-	margin: 0 auto;
+.lightmode {
+	background-color: var(--light-mode-color);
+	color: var(--main-bg-color);
 }
 
-@media (min-width: 800px) {
+@media (min-width: 600px) {
 	.regimg {
 		width: auto;
 		height: auto;
@@ -183,9 +173,25 @@ b {
 	.hideonvertical {
 		visibility: hidden;
 	}
+	.eventmessage div img{
+		src: url("images/happyholidays.png");
+		background-repeat: no-repeat;
+		height: 100%;
+		margin: 0 auto;
+	}
+	/* Style the links inside the navigation bar */
+	.topnav a {
+		float: left;
+		color: #f2f2f2;
+		text-align: center;
+		padding: 14px 16px;
+		text-decoration: none;
+		font-size: 17px;
+		width: auto;
+	}
 }
 
-@media (max-width: 800px) {
+@media (max-width: 600px) {
 	.regimg {
 		width: 100%;
 		height: auto;
@@ -225,5 +231,21 @@ b {
 	}
 	.hideonvertical {
 		visibility: visible;
+	}
+	div.eventmessage img{
+		background-repeat: no-repeat;
+		height: 75%;
+		max-width: min-content;
+		width: 75%;
+	}
+	.topnav a {
+		float: left;
+		color: #f2f2f2;
+		text-align: center;
+		padding: 14px 16px;
+		text-decoration: none;
+		width: 15%;
+		height: 4vh;
+		font-size: 3vw;
 	}
 }

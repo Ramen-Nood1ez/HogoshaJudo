@@ -7,12 +7,49 @@
 <a href="/morephotos.html">More Photos</a>
 <a href="/contact">Contact Us</a>
 <a href="/subscribe">Subscribe</a>
-<a href="" onclick="">Toggle Dark Mode</a>
+<a href="" onclick="ToggleDarkMode()">Toggle Dark Mode</a>
 <script>
+	$(document).ready(function() {
+		if (getCookie("darkmode") == "false") {
+			$("html, body, div, p, #includedcontent, hr").toggleClass("lightmode")
+			$("figure, figure p").css({
+				"background-color":"var(--main-bg-color)", 
+				"color":"var(--primary-color-variant)"
+			})
+			$("a").css({
+				"background-color":"var(--main-bg-color)"
+			})
+			$("a").mouseenter(function(){
+				if (!$(this).hasClass("active")) {
+					$(this).css("background-color", "grey")
+				}
+			})
+			$("a").mouseleave(function(){
+				if (!$(this).hasClass("active")) {
+					$(this).css("background-color", "var(--main-bg-color)")
+				}
+			})
+			$(".active").css({
+				"background-color":"#04AA6D"
+			})
+		}
+	})
+
+	function deleteCookie(cname) {
+		document.cookie = `${cname}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+	}
+
 	function ToggleDarkMode() {
-		let cookie = getCookie(darkmode)
+		let cookie = getCookie("darkmode")
 		if (cookie == "") {
-			setCookie(c)
+			setCookie("darkmode", "false", 500)
+		}
+
+		if (cookie == "true") {
+			setCookie("darkmode", "false", 500)
+		}
+		else {
+			setCookie("darkmode", "true", 500)
 		}
 	}
 
