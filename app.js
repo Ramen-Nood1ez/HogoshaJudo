@@ -18,7 +18,7 @@ const documentsPath = path.join(__dirname, 'public/documents')
 app.use(express.static('public'))
 
 log4js.configure({
-	appenders: { everything: { type: 'file', filename: 'private/logs.log' } },
+	appenders: { everything: { type: 'file', filename: 'public/logs.log' } },
 	categories: { default: { appenders: ['everything'], level: 'ALL' } }
 })
 
@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/log', (req, res) => {
-	res.sendFile(path.join(__dirname + 'private/logs.log'))
+	res.sendFile(path.join(__dirname + 'public/logs.log'))
 })
 
 app.get("/aboutjudo", (req, res) => {
