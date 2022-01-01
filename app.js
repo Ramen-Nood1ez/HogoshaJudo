@@ -7,6 +7,7 @@ const querystring = require("querystring")
 const sizeOf = require('image-size')
 const formidable = require("formidable")
 const mysql = require("mysql")
+const log4js = require("log4js")
 
 const morePhotosPath = path.join(__dirname, 'public/morephotos')
 const photosPath = path.join(__dirname, 'public/photos')
@@ -16,8 +17,19 @@ const documentsPath = path.join(__dirname, 'public/documents')
 
 app.use(express.static('public'))
 
+log4js.configure({
+	appenders: { everything: { type: 'file', filename: 'logs.log' } },
+	categories: { default: { appenders: ['everything'], level: 'ALL' } }
+})
+
+const logger = log4js.getLogger()
+
 app.get('/', (req, res) => {
 	
+})
+
+app.get('/log', (req, res) => {
+	res.sendFile(paht.join(__dirname + '/logs.log'))
 })
 
 app.get("/aboutjudo", (req, res) => {
@@ -50,7 +62,7 @@ app.get("/subscribe", (req, res) => {
 
 app.get('/subscribed', (req, res) => {
 	var email = req.query.email
-	console.log(email)
+	logger.debug(email)
 	fs.readFile("private/pending_emails.txt", (err, data) => {
 		if (data.toString().includes(email)) {
 			res.send("<h1>That Email Already Exists!</h1>")
@@ -58,7 +70,7 @@ app.get('/subscribed', (req, res) => {
 		else {
 			fs.appendFile("private/pending_emails.txt", `${email}\n`, (err) => {
 				if (err) {
-					console.error("Help!")
+					logger.error("Help!")
 				}
 			})
 			res.sendFile(path.join(__dirname, "public/subscribe.html"))
@@ -106,15 +118,15 @@ app.post('/fileupload', (req, res) => {
 
 		fs.readdir(photosPath, function (err, files2) {
 			if (err) {
-				return console.log('Unable to scan directory: ' + err)
+				return logger.error('Unable to scan directory: ' + err)
 			}
 	
 			files2.forEach(function (file) {
-				console.log(file)
+				logger.debug(file)
 
 				if (file.includes(year)) {
 					fileindex += 1
-					console.log(fileindex)
+					logger.debug(fileindex)
 				}
 			})
 		})
@@ -128,9 +140,9 @@ app.post('/fileupload', (req, res) => {
 		
 		var newpath = reviewPath + `\\${year}-${fileindex}${fileextension}`
 
-		console.log(newpath)
+		logger.debug(newpath)
 
-		console.log(year)
+		logger.debug(year)
 
 		fs.rename(oldpath, newpath, function (err) {
 			if (err) throw err
@@ -159,11 +171,11 @@ function AuthUser(username, password) {
 
 	con.connect(function(err) {
 		if (err) throw err
-		console.log("Connected!")
+		logger.debug("Connected!")
 
 		con.query(`SELECT 'password' FROM 'users' WHERE 'username' = "${username}"`, function (err, result) {
 			if (err) throw err
-			console.log(`User used the username, ${username}, and attempted to login using the password, 
+			logger.debug(`User used the username, ${username}, and attempted to login using the password, 
 			${password}, and the actual password is: ${result}`)
 
 			if (password == result) {
@@ -177,7 +189,7 @@ function AuthUser(username, password) {
 }
 
 app.listen(port, () => {
-	console.log(`Example app listening at http://localhost:${port}`)
+	logger.info(`Example app listening at http://localhost:${port}`)
 
 	// More photos
 	fs.writeFile("public/morephotostemplate.html", "", function (err) {
@@ -190,11 +202,11 @@ app.listen(port, () => {
 	// More photos
 	fs.readdir(morePhotosPath, function (err, files) {
 		if (err) {
-			return console.log('Unable to scan directory: ' + err)
+			return logger.error('Unable to scan directory: ' + err)
 		}
 
 		files.forEach(function (file) {
-			console.log(file)
+			logger.info(file)
 
 			var dimensions = sizeOf(`${morePhotosPath}/${file}`)
 
@@ -204,16 +216,16 @@ app.listen(port, () => {
 		})
 	})
 	// Photos
-	console.log('--------------------')
+	logger.debug('--------------------')
 
 	fs.readFile(`${photosPath}/desc.txt`, function (err, data) {
-		console.log(`Desc.txt Contents:\n${data.toString()}`)
+		logger.info(`Desc.txt Contents:\n${data.toString()}`)
 		let rows = data.toString().split("\n")
 		rows.forEach(function (row) {
 			let img = row.split("+")[0]
 			let desc = row.split("+")[1]
 			
-			console.log(`Image Name: ${img}\nDescription: ${desc}`)
+			logger.info(`Image Name: ${img}\nDescription: ${desc}`)
 
 			try {
 				var dimensions = sizeOf(`${photosPath}/${img}`)
@@ -225,7 +237,7 @@ app.listen(port, () => {
 				})
 			}
 			catch (e) {
-				console.log(`Image: "${img}", with description: "${desc}", does not exist...`)
+				logger.info(`Image: "${img}", with description: "${desc}", does not exist...`)
 			}
 		})
 	})
@@ -234,11 +246,11 @@ app.listen(port, () => {
 
 	fs.readdir(newsPath, function (err, files) {
 		if (err) {
-			return console.log('Unable to scan directory: ' + err)
+			return logger.error('Unable to scan directory: ' + err)
 		}
 		var datetime = new Date();
 		const date = datetime.toISOString().slice(0,10)
-		console.log(date);
+		logger.info(date);
 
 		fs.writeFile("public/news/newstemplate.html", "<br>\n", function (err) {
 			if (err) throw err;
@@ -246,7 +258,7 @@ app.listen(port, () => {
 		let i = 1;
 
 		files.forEach(function (file) {
-			console.log(file)
+			logger.info(file)
 			
 			fs.readFile(`public/news/${file}`, function (err, data) {
 				file = file.replace("\r", "")
@@ -261,10 +273,10 @@ app.listen(port, () => {
 
 	/*
 	files.forEach(function (file) {
-		console.log(file)
+		logger.info(file)
 
 		fs.readFile(`${photosPath}/${file.split('.')[0]}.txt`, function (err, data) {
-			console.log(data.toString())
+			logger.info(data.toString())
 			fs.appendFile("public/photostemplate.html", ``, function (err) {
 				if (err) throw err;
 			})

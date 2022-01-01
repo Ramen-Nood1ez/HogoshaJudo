@@ -12,6 +12,7 @@
     "express": "^4.17.1",
     "formidable": "^1.2.2",
     "image-size": "^1.0.0",
+    "log4js": "^6.3.0",
     "mysql": "^2.18.1"
   }
 }
