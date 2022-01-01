@@ -81,8 +81,8 @@ app.get('/loginpage', (req, res) => {
 app.post('/login', (req, res) => {
 	var user = req.query.username
 	var password = req.query.password
-	
-	res.send(AuthUser(user, password))
+
+	res.send("Logged in: " + AuthUser(user, password))
 })
 
 app.post('/createarticle', (req, res) => {
