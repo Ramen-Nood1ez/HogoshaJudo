@@ -6,6 +6,7 @@ const fs = require('fs')
 const querystring = require("querystring")
 const sizeOf = require('image-size')
 const formidable = require("formidable")
+const mysql = require("mysql")
 
 const morePhotosPath = path.join(__dirname, 'public/morephotos')
 const photosPath = path.join(__dirname, 'public/photos')
@@ -73,6 +74,25 @@ app.get('/documents', (req, res) => {
 	res.send('<meta http-equiv="refresh" content="0;url=/documents.html" />')
 })
 
+app.get('/loginpage', (req, res) => {
+	res.sendFile(path.join(__dirname, "public/login.html"))
+})
+
+app.post('/login', (req, res) => {
+	var user = req.query.username
+	var password = req.query.password
+	
+	res.send(AuthUser(user, password))
+})
+
+app.post('/createarticle', (req, res) => {
+	var title = req.query.title
+	var desc = req.query.desc
+	var content = req.query.content
+
+	
+})
+
 app.post('/fileupload', (req, res) => {
 	const directoryPath = path.join(__dirname, 'public/addimage.html')
 	var form = new formidable.IncomingForm()
@@ -130,9 +150,35 @@ app.get('*', function(req, res) {
 	res.status(404).sendFile(path.join(__dirname, 'public/errors/404.html'))
 })
 
+function AuthUser(username, password) {
+	var con = mysql.createConnection({
+		host: "localhost",
+		user: "hogoshaj_carter",
+		password: "F53MiNGPB6QrXbGgEB3T"
+	})
+
+	con.connect(function(err) {
+		if (err) throw err
+		console.log("Connected!")
+
+		con.query(`SELECT 'password' FROM 'users' WHERE 'username' = "${username}"`, function (err, result) {
+			if (err) throw err
+			console.log(`User used the username, ${username}, and attempted to login using the password, 
+			${password}, and the actual password is: ${result}`)
+
+			if (password == result) {
+				return true
+			}
+			else {
+				return false
+			}
+		})
+	})
+}
+
 app.listen(port, () => {
 	console.log(`Example app listening at http://localhost:${port}`)
-	
+
 	// More photos
 	fs.writeFile("public/morephotostemplate.html", "", function (err) {
 			if (err) throw err;
