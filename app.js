@@ -94,7 +94,7 @@ app.post('/login', (req, res) => {
 	var user = req.query.username
 	var password = req.query.password
 
-	res.send("Logged in: " + AuthUser(user, password))
+	res.send(`<h1>Logged in: ${AuthUser(user, password)}</h1>`)
 })
 
 app.post('/createarticle', (req, res) => {
