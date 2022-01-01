@@ -10,6 +10,8 @@ const formidable = require("formidable")
 const morePhotosPath = path.join(__dirname, 'public/morephotos')
 const photosPath = path.join(__dirname, 'public/photos')
 const reviewPath = path.join(__dirname, 'private/photos_for_review')
+const newsPath = path.join(__dirname, 'public/news')
+const documentsPath = path.join(__dirname, 'public/documents')
 
 app.use(express.static('public'))
 
@@ -62,6 +64,13 @@ app.get('/subscribed', (req, res) => {
 		}
 	})
 	
+})
+
+app.get('/news', (req, res) => {
+})
+
+app.get('/documents', (req, res) => {
+	res.send('<meta http-equiv="refresh" content="0;url=/documents.html" />')
 })
 
 app.post('/fileupload', (req, res) => {
@@ -172,6 +181,35 @@ app.listen(port, () => {
 			catch (e) {
 				console.log(`Image: "${img}", with description: "${desc}", does not exist...`)
 			}
+		})
+	})
+
+	//News
+
+	fs.readdir(newsPath, function (err, files) {
+		if (err) {
+			return console.log('Unable to scan directory: ' + err)
+		}
+		var datetime = new Date();
+		const date = datetime.toISOString().slice(0,10)
+		console.log(date);
+
+		fs.writeFile("public/news/newstemplate.html", "<br>\n", function (err) {
+			if (err) throw err;
+		})
+		let i = 1;
+
+		files.forEach(function (file) {
+			console.log(file)
+			
+			fs.readFile(`public/news/${file}`, function (err, data) {
+				file = file.replace("\r", "")
+				if (file == "newstemplate.html")
+				fs.appendFile("public/news/newstemplate.html", `<a href='/news?a=${i}'>${file}</a>\n`, function (err) {
+					if (err) throw err;
+				})
+				i++;
+			})
 		})
 	})
 
