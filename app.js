@@ -167,10 +167,10 @@ function AuthUser(username, password) {
 			${password}, and the actual password is: ${result}`)
 
 			if (password == result) {
-				return true
+				return 'true'
 			}
 			else {
-				return false
+				return 'false'
 			}
 		})
 	})
