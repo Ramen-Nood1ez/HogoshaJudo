@@ -170,11 +170,17 @@ function AuthUser(username, password) {
 	})
 
 	con.connect(function(err) {
-		if (err) throw err
+		if (err) {
+			logger.error(err)
+			throw err
+		}
 		logger.debug("Connected!")
 
 		con.query(`SELECT 'password' FROM 'users' WHERE 'username' = "${username}"`, function (err, result) {
-			if (err) throw err
+			if (err) {
+				logger.error(err)
+				throw err
+			}
 			logger.debug(`User used the username, ${username}, and attempted to login using the password, 
 			${password}, and the actual password is: ${result}`)
 
