@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/log', (req, res) => {
-	res.sendFile(paht.join(__dirname + 'private/logs.log'))
+	res.sendFile(path.join(__dirname + 'private/logs.log'))
 })
 
 app.get("/aboutjudo", (req, res) => {
