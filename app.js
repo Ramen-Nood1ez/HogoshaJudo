@@ -227,7 +227,7 @@ function AuthUser(username, password, res) {
 
 	const query = "SELECT \`password\` AS 'pd' FROM \`users\` WHERE \`username\` = ?"
 
-	var authed = false
+	let authed = false
 
 	con.query(query, [username], function (err, result) {
 		if (err) {
