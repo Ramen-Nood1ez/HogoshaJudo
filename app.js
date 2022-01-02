@@ -140,7 +140,10 @@ app.post('/login', (req, res) => {
 	var password = req.body.password
 
 	const result = AuthUser(user, password, res)
-	(result.isNAN()) ? res.send(`<h1>Logged in: ${result}</h1>`) : SendError(res, result)
+	if (result.isNAN()) return res.send(`<h1>Logged in: ${result}</h1>`)
+	else SendError(res, result)
+
+	
 })
 
 app.post('/createarticle', (req, res) => {
@@ -229,13 +232,13 @@ function AuthUser(username, password, res) {
 				throw err
 			}
 			logger.debug(`User used the username, ${username}, and attempted to login using the password, 
-			${password}, and the actual password is: ${result}`)
+			${password}, and the actual password is: ${result.toString()}`)
 
 			if (password == result) {
-				return 'true'
+				return true
 			}
 			else {
-				return 'false'
+				return false
 			}
 		})
 	})
