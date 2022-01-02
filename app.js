@@ -221,35 +221,29 @@ function AuthUser(username, password, res) {
 		database: "hogoshaj_main"
 	})
 
-	con.connect(function(err) {
+	con.connect()
+	logger.debug("Connected!")
+
+	const query = "SELECT \`password\` AS 'pd' FROM \`users\` WHERE \`username\` = ?"
+
+	con.query(query, [username], function (err, result) {
 		if (err) {
 			logger.error(err)
 			throw err
 		}
-		logger.debug("Connected!")
+		logger.debug(`User used the username, ${username}, and attempted to login using the password, ${password}, and the actual password is: ${result.pd}`)
 
-		const query = "SELECT \`password\` FROM \`users\` WHERE \`username\` = ?"
+		return (password == result.pd) ? true : false
 
-		con.query(query, [username], function (err, result) {
-			if (err) {
-				logger.error(err)
-				throw err
-			}
-			logger.debug(`User used the username, ${username}, and attempted to login using the password, ${password}, and the actual password is: ${result[0]}`)
-
-			return (password == result[0]) ? true : false
-
-			/*
-			if (password == result.toString()) {
-				return true
-			}
-			else {
-				return false
-			}
-			*/
-		})
+		/*
+		if (password == result.toString()) {
+			return true
+		}
+		else {
+			return false
+		}
+		*/
 	})
-
 	/*
 
 	logger.error('Something went wrong trying to connect to the mysql server...')
