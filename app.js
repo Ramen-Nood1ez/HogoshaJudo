@@ -46,6 +46,8 @@ app.get('/log', (req, res) => {
 
 		var lines = data.toString().split('\n')
 
+		logger.debug(lines)
+
 		lines.forEach(function (line) {
 			if (line.includes("DEBUG")) {
 				output += `\n<mark style="background-color: brown; color: black;">${line}</mark>`
