@@ -223,7 +223,7 @@ function AuthUser(username, password, res) {
 		}
 		logger.debug("Connected!")
 
-		con.query(`SELECT 'password' FROM 'users' WHERE 'username' = "${username}"`, function (err, result) {
+		con.query(`SELECT \`password\` FROM \`users\` WHERE \`username\` = '${username}';`, function (err, result) {
 			if (err) {
 				logger.error(err)
 				throw err
