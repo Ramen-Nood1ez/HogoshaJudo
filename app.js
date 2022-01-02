@@ -141,7 +141,7 @@ app.post('/login', (req, res) => {
 
 	const result = AuthUser(user, password, res)
 	if (result != 502) {
-		return res.send(`<h1>Logged in: ${result[0].pd}</h1>`)
+		return res.send(`<h1>Logged in: ${result.toString()}</h1>`)
 	}
 	else {
 		SendError(res, result)
