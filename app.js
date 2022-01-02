@@ -247,19 +247,13 @@ function AuthUser(username, password, res) {
 function SendError(res, errornum) {
 	switch (errornum) {
 		case 404:
-			res.status(404).sendFile(path.join(__dirname, 'public/errors/404.html'))
-			break;
-
-		case 500:
-			res.status(500).sendFile(path.join(__dirname, 'public/errors/500.html'))
-			break;
+			return res.status(404).sendFile(path.join(__dirname, 'public/errors/404.html'))
 
 		case 502:
-			res.status(502).sendFile(path.join(__dirname, 'public/errors/502.html'))
-			break;
+			return res.status(502).sendFile(path.join(__dirname, 'public/errors/502.html'))
 	
 		default:
-			break;
+			return res.status(500).sendFile(path.join(__dirname, 'public/errors/500.html'))
 	}
 }
 
