@@ -140,7 +140,7 @@ app.post('/login', (req, res) => {
 	var password = req.body.password
 
 	const result = AuthUser(user, password, res)
-	if (result != 504) {
+	if (result != 502) {
 		return res.send(`<h1>Logged in: ${result}</h1>`)
 	}
 	else {
