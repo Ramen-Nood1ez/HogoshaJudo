@@ -228,20 +228,25 @@ function AuthUser(username, password, res) {
 		}
 		logger.debug("Connected!")
 
-		con.query(`SELECT \`password\` FROM \`users\` WHERE \`username\` = '${username}';`, function (err, result) {
+		const query = "SELECT \`password\` FROM \`users\` WHERE \`username\` = ?"
+
+		con.query(query, [username], function (err, result) {
 			if (err) {
 				logger.error(err)
 				throw err
 			}
-			logger.debug(`User used the username, ${username}, and attempted to login using the password, 
-			${password}, and the actual password is: ${result.toString()}`)
+			logger.debug(`User used the username, ${username}, and attempted to login using the password, ${password}, and the actual password is: ${result.toString()}`)
 
+			return (password == result[0]) ? true : false
+
+			/*
 			if (password == result.toString()) {
 				return true
 			}
 			else {
 				return false
 			}
+			*/
 		})
 	})
 
