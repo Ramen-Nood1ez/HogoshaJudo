@@ -227,6 +227,8 @@ function AuthUser(username, password, res) {
 
 	const query = "SELECT \`password\` AS 'pd' FROM \`users\` WHERE \`username\` = ?"
 
+	var authed = false
+
 	con.query(query, [username], function (err, result) {
 		if (err) {
 			logger.error(err)
@@ -234,7 +236,10 @@ function AuthUser(username, password, res) {
 		}
 		logger.debug(`User used the username, ${username}, and attempted to login using the password, ${password}, and the actual password is: ${result[0].pd}`)
 
-		return (password == result[0].pd) ? 'true' : 'false'
+		if (password == result[0].pd) {
+			logger.info(`User is authorized...`)
+			authed = true
+		}
 
 		/*
 		if (password == result.toString()) {
@@ -245,6 +250,8 @@ function AuthUser(username, password, res) {
 		}
 		*/
 	})
+
+	return authed
 	/*
 
 	logger.error('Something went wrong trying to connect to the mysql server...')
