@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 app.get('/log', (req, res) => {
 	// Make the log more readable
 	const logpath = path.join(__dirname, 'public/logs.log')
-	let output = `<head>
+	var output = `<head>
 		<link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon'>
 		<link rel='stylesheet' href='style.css'>
 		<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
