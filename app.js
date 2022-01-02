@@ -234,7 +234,7 @@ function AuthUser(username, password, res) {
 		}
 		logger.debug(`User used the username, ${username}, and attempted to login using the password, ${password}, and the actual password is: ${result[0].pd}`)
 
-		return (password == result[0].pd) ? true : false
+		return (password == result[0].pd) ? 'true' : 'false'
 
 		/*
 		if (password == result.toString()) {
