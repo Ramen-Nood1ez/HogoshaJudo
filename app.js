@@ -46,7 +46,7 @@ app.get('/log', (req, res) => {
 
 		var lines = data.toString().split('\n')
 
-		logger.debug(lines)
+		//logger.debug(lines)
 
 		lines.forEach(function (line) {
 			if (line.includes("DEBUG")) {
@@ -60,6 +60,9 @@ app.get('/log', (req, res) => {
 			}
 			else if (line.includes("FATAL")) {
 				output += `\n<b><mark style="background-color: dark_red; color: black;">${line}</mark></b>`
+			}
+			else {
+				output += `\n<mark style="background-color: grey; color: white;">${line}</mark>`
 			}
 		})
 
