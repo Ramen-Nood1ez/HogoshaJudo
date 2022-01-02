@@ -250,10 +250,13 @@ function AuthUser(username, password, res) {
 		})
 	})
 
+	/*
+
 	logger.error('Something went wrong trying to connect to the mysql server...')
 	logger.error('Sending error to client...')
 	
 	return 502
+	*/
 }
 
 function SendError(res, errornum) {
