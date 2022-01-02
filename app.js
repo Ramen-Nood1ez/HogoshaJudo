@@ -37,8 +37,9 @@ app.get('/log', (req, res) => {
 		<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
 		</head>`
 	output += "\n<body>"
+	var body = ""
 	fs.readFile(logpath, (err, data) => {
-		let body = ""
+		
 		if (err) {
 			logger.error(err)
 			res.send(err)
