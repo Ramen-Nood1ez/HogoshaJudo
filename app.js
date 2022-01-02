@@ -140,7 +140,7 @@ app.post('/login', (req, res) => {
 	var password = req.body.password
 
 	const result = AuthUser(user, password, res)
-	if (result.isNAN()) {
+	if (result != 504) {
 		return res.send(`<h1>Logged in: ${result}</h1>`)
 	}
 	else {
@@ -235,7 +235,7 @@ function AuthUser(username, password, res) {
 				logger.error(err)
 				throw err
 			}
-			logger.debug(`User used the username, ${username}, and attempted to login using the password, ${password}, and the actual password is: ${result.toString()}`)
+			logger.debug(`User used the username, ${username}, and attempted to login using the password, ${password}, and the actual password is: ${result[0]}`)
 
 			return (password == result[0]) ? true : false
 
