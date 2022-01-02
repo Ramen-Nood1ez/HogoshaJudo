@@ -139,7 +139,8 @@ app.post('/login', (req, res) => {
 	var user = req.body.username
 	var password = req.body.password
 
-	res.send(`<h1>Logged in: ${AuthUser(user, password, res)}</h1>`)
+	const result = AuthUser(user, password, res)
+	(result.isNAN()) ? res.send(`<h1>Logged in: ${result}</h1>`) : SendError(res, result)
 })
 
 app.post('/createarticle', (req, res) => {
@@ -242,18 +243,18 @@ function AuthUser(username, password, res) {
 	logger.error('Something went wrong trying to connect to the mysql server...')
 	logger.error('Sending error to client...')
 	
-	return SendError(res, 502)
+	return 502
 }
 
 function SendError(res, errornum) {
 	switch (errornum) {
-		case 404:
+		case 404: /* File not found */
 			return res.status(404).sendFile(path.join(__dirname, 'public/errors/404.html'))
 
-		case 502:
+		case 502: /* Bad Gateway */
 			return res.status(502).sendFile(path.join(__dirname, 'public/errors/502.html'))
 	
-		default:
+		default: /* Internal Server Error -- Catch All */
 			return res.status(500).sendFile(path.join(__dirname, 'public/errors/500.html'))
 	}
 }
