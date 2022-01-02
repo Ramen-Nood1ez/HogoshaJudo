@@ -29,7 +29,43 @@ app.get('/', (req, res) => {
 })
 
 app.get('/log', (req, res) => {
-	res.sendFile(path.join(__dirname + 'public/logs.log'))
+	// Make the log more readable
+	const logpath = path.join(__dirname, 'public/logs.log')
+	let output = `<head>
+		<link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon'>
+		<link rel='stylesheet' href='style.css'>
+		<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+		</head>`
+	output += "\n<body>"
+	fs.readFile(logpath, (err, data) => {
+		if (err) {
+			logger.error(err)
+			res.send(err)
+			throw error
+		}
+
+		var lines = data.toString().split('\n')
+
+		lines.forEach(function (line) {
+			if (line.includes("DEBUG")) {
+				output += `\n<mark style="background-color: brown; color: black;">${line}</mark>`
+			}
+			else if (line.includes("INFO")) {
+				output += `\n<mark style="background-color: green; color: black;">${line}</mark>`
+			}
+			else if (line.includes("ERROR")) {
+				output += `\n<mark style="background-color: red; color: black;">${line}</mark>`
+			}
+			else if (line.includes("FATAL")) {
+				output += `\n<b><mark style="background-color: dark_red; color: black;">${line}</mark></b>`
+			}
+		})
+
+		
+	})
+	output += "\n</body>"
+
+	res.send(output)
 })
 
 app.get("/aboutjudo", (req, res) => {
@@ -159,7 +195,7 @@ app.post('/fileupload', (req, res) => {
 })
 
 app.get('*', function(req, res) {
-	res.status(404).sendFile(path.join(__dirname, 'public/errors/404.html'))
+	SendError(res, 404)
 })
 
 function AuthUser(username, password) {
@@ -192,6 +228,17 @@ function AuthUser(username, password) {
 			}
 		})
 	})
+}
+
+function SendError(res, errornum) {
+	switch (errornum) {
+		case 404:
+			res.status(404).sendFile(path.join(__dirname, 'public/errors/404.html'))
+			break;
+	
+		default:
+			break;
+	}
 }
 
 app.listen(port, () => {
