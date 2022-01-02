@@ -139,7 +139,7 @@ app.post('/login', (req, res) => {
 	var user = req.body.username
 	var password = req.body.password
 
-	res.send(`<h1>Logged in: ${AuthUser(user, password)}</h1>`)
+	res.send(`<h1>Logged in: ${AuthUser(user, password, res)}</h1>`)
 })
 
 app.post('/createarticle', (req, res) => {
@@ -207,7 +207,7 @@ app.get('*', function(req, res) {
 	SendError(res, 404)
 })
 
-function AuthUser(username, password) {
+function AuthUser(username, password, res) {
 	var con = mysql.createConnection({
 		host: "70.32.23.106",
 		user: "hogoshaj_carter",
@@ -237,12 +237,25 @@ function AuthUser(username, password) {
 			}
 		})
 	})
+
+	logger.error('Something went wrong trying to connect to the mysql server...')
+	logger.error('Sending error to client...')
+	SendError(res, 502)
+	return 'Error'
 }
 
 function SendError(res, errornum) {
 	switch (errornum) {
 		case 404:
 			res.status(404).sendFile(path.join(__dirname, 'public/errors/404.html'))
+			break;
+
+		case 500:
+			res.status(500).sendFile(path.join(__dirname, 'public/errors/500.html'))
+			break;
+
+		case 502:
+			res.status(502).sendFile(path.join(__dirname, 'public/errors/502.html'))
 			break;
 	
 		default:
