@@ -49,28 +49,28 @@ app.get('/log', (req, res) => {
 
 		var lines = data.toString().split('\n')
 
-		logger.debug(lines.length)
+		//logger.debug(lines.length)
 
 		for (let i = 0; i < lines.length; i++) {
 			if (lines[i].includes("DEBUG")) {
-				body += `\n<mark style="background-color: brown; color: black;">${lines[i]}</mark>`
+				body += `\n<br><mark style="background-color: brown; color: black;">${lines[i]}</mark>`
 			}
 			else if (lines[i].includes("INFO")) {
-				body += `\n<mark style="background-color: green; color: black;">${lines[i]}</mark>`
+				body += `\n<br><mark style="background-color: green; color: black;">${lines[i]}</mark>`
 			}
 			else if (lines[i].includes("ERROR")) {
-				body += `\n<mark style="background-color: red; color: black;">${lines[i]}</mark>`
+				body += `\n<br><mark style="background-color: red; color: black;">${lines[i]}</mark>`
 			}
 			else if (lines[i].includes("FATAL")) {
-				body += `\n<b><mark style="background-color: dark_red; color: black;">${lines[i]}</mark></b>`
+				body += `\n<br><b><mark style="background-color: dark_red; color: black;">${lines[i]}</mark></b>`
 			}
 			else {
-				body += `\n<mark style="background-color: grey; color: white;">${lines[i]}</mark>`
+				body += `\n<br><mark style="background-color: grey; color: white;">${lines[i]}</mark>`
 			}
 			
 		}
-		
-		logger.debug(body)
+
+		//logger.debug(body)
 		res.send(`${output}${body}</body>`)
 	})
 	
