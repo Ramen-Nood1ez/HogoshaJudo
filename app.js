@@ -48,25 +48,24 @@ app.get('/log', (req, res) => {
 
 		//logger.debug(lines)
 
-		lines.forEach(function (line) {
-			if (line.includes("DEBUG")) {
+		for (let i = 0; i < lines.length; i++) {
+			if (lines[i].includes("DEBUG")) {
 				output += `\n<mark style="background-color: brown; color: black;">${line}</mark>`
 			}
-			else if (line.includes("INFO")) {
+			else if (lines[i].includes("INFO")) {
 				output += `\n<mark style="background-color: green; color: black;">${line}</mark>`
 			}
-			else if (line.includes("ERROR")) {
+			else if (lines[i].includes("ERROR")) {
 				output += `\n<mark style="background-color: red; color: black;">${line}</mark>`
 			}
-			else if (line.includes("FATAL")) {
+			else if (lines[i].includes("FATAL")) {
 				output += `\n<b><mark style="background-color: dark_red; color: black;">${line}</mark></b>`
 			}
 			else {
 				output += `\n<mark style="background-color: grey; color: white;">${line}</mark>`
 			}
-		})
-
-		
+			
+		}
 	})
 	output += "\n</body>"
 
