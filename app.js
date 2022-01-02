@@ -38,6 +38,7 @@ app.get('/log', (req, res) => {
 		</head>`
 	output += "\n<body>"
 	fs.readFile(logpath, (err, data) => {
+		let body = ""
 		if (err) {
 			logger.error(err)
 			res.send(err)
@@ -50,26 +51,25 @@ app.get('/log', (req, res) => {
 
 		for (let i = 0; i < lines.length; i++) {
 			if (lines[i].includes("DEBUG")) {
-				output += `\n<mark style="background-color: brown; color: black;">${line}</mark>`
+				body += `\n<mark style="background-color: brown; color: black;">${lines[i]}</mark>`
 			}
 			else if (lines[i].includes("INFO")) {
-				output += `\n<mark style="background-color: green; color: black;">${line}</mark>`
+				body += `\n<mark style="background-color: green; color: black;">${lines[i]}</mark>`
 			}
 			else if (lines[i].includes("ERROR")) {
-				output += `\n<mark style="background-color: red; color: black;">${line}</mark>`
+				body += `\n<mark style="background-color: red; color: black;">${lines[i]}</mark>`
 			}
 			else if (lines[i].includes("FATAL")) {
-				output += `\n<b><mark style="background-color: dark_red; color: black;">${line}</mark></b>`
+				body += `\n<b><mark style="background-color: dark_red; color: black;">${lines[i]}</mark></b>`
 			}
 			else {
-				output += `\n<mark style="background-color: grey; color: white;">${line}</mark>`
+				body += `\n<mark style="background-color: grey; color: white;">${lines[i]}</mark>`
 			}
 			
 		}
 	})
-	output += "\n</body>"
 
-	res.send(output)
+	res.send(`${output}${body}</body>`)
 })
 
 app.get("/aboutjudo", (req, res) => {
