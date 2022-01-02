@@ -31,15 +31,16 @@ app.get('/', (req, res) => {
 app.get('/log', (req, res) => {
 	// Make the log more readable
 	const logpath = path.join(__dirname, 'public/logs.log')
-	var output = `<head>
+	
+	fs.readFile(logpath, (err, data) => {
+		var output = `<head>
 		<link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon'>
 		<link rel='stylesheet' href='style.css'>
 		<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
 		</head>`
-	output += "\n<body>"
-	var body = ""
-	fs.readFile(logpath, (err, data) => {
-		
+		output += "\n<body>"
+		var body = ""
+
 		if (err) {
 			logger.error(err)
 			res.send(err)
@@ -68,9 +69,11 @@ app.get('/log', (req, res) => {
 			}
 			
 		}
+		
+		logger.debug(body)
+		res.send(`${output}${body}</body>`)
 	})
-	logger.debug(body)
-	res.send(`${output}${body}</body>`)
+	
 })
 
 app.get("/aboutjudo", (req, res) => {
