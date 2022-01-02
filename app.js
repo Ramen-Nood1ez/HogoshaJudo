@@ -69,7 +69,7 @@ app.get('/log', (req, res) => {
 			
 		}
 	})
-
+	logger.debug(body)
 	res.send(`${output}${body}</body>`)
 })
 
