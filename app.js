@@ -209,7 +209,7 @@ app.get('*', function(req, res) {
 
 function AuthUser(username, password) {
 	var con = mysql.createConnection({
-		host: "localhost",
+		host: "70.32.23.106",
 		user: "hogoshaj_carter",
 		password: "F53MiNGPB6QrXbGgEB3T"
 	})
