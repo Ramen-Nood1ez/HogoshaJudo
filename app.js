@@ -135,10 +135,11 @@ app.get('/loginpage', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-	var user = req.body.username
-	var password = req.body.password
+	var user = res.json(req.body.username)
+	var password = res.json(req.body.password)
 
-	res.send(`<h1>Logged in: ${AuthUser(user, password)}</h1>`)
+	res.send(`<h1>Json:</h1>\n${user}\n${password}`)
+	//res.send(`<h1>Logged in: ${AuthUser(user, password)}</h1>`)
 })
 
 app.post('/createarticle', (req, res) => {
