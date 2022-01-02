@@ -16,6 +16,7 @@ const newsPath = path.join(__dirname, 'public/news')
 const documentsPath = path.join(__dirname, 'public/documents')
 
 app.use(express.static('public'))
+app.use(express.urlencoded())
 
 log4js.configure({
 	appenders: { everything: { type: 'file', filename: 'public/logs.log' } },
@@ -135,10 +136,10 @@ app.get('/loginpage', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-	var user = res.json(req.body.username)
-	var password = res.json(req.body.password)
+	var user = req.body.username
+	var password = req.body.password
 
-	res.send(`<h1>Json:</h1>\n${user}\n${password}`)
+	res.send(`<h1>Data</h1>\n${user}\n${password}`)
 	//res.send(`<h1>Logged in: ${AuthUser(user, password)}</h1>`)
 })
 
