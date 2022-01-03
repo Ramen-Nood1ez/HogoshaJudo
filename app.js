@@ -291,7 +291,7 @@ function CreateIDFromUsername(username) {
 	username.split('').forEach(function (letter) {
 		for (let i = 0; i < alphabet.length; i++) {
 			if (letter == alphabet[i]) {
-				UniqueID *= i^3
+				UniqueID *= i
 			}
 		}
 	})
