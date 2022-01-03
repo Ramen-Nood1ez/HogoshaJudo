@@ -8,6 +8,7 @@ const sizeOf = require('image-size')
 const formidable = require("formidable")
 const mysql = require("mysql")
 const log4js = require("log4js")
+const cookieParser = require('cookie-parser')
 
 const morePhotosPath = path.join(__dirname, 'public/morephotos')
 const photosPath = path.join(__dirname, 'public/photos')
@@ -19,6 +20,7 @@ let authresult
 
 app.use(express.static('public'))
 app.use(express.urlencoded())
+app.use(cookieParser())
 
 log4js.configure({
 	appenders: { everything: { type: 'file', filename: 'public/logs.log' } },
@@ -140,11 +142,20 @@ app.get('/loginpage', (req, res) => {
 app.post('/login', (req, res) => {
 	var user = req.body.username
 	var password = req.body.password
+	var rememberusername = req.body.rememberme
+
+	if (rememberusername == "on") {
+		res.cookie(`username`, `${user}`, {
+			maxAge: new Date(Date.now() + (2.628 * 10^9)),
+			secure: true
+		})
+	}
 
 	const result = AuthUser(user, password, res)
 	logger.debug(authresult)
 	if (result != 502) {
 		logger.debug(`Result: ${result}`)
+		res.cookie(`loggedin`, CreateIDFromUsername(user))
 		return res.send(`<h1>Logged in: ${result.toString()}</h1>`)
 	}
 	else {
@@ -271,6 +282,21 @@ function SQLQuery(query, placeholders = [], callback = null) {
 			return result
 		}
 	})
+}
+
+function CreateIDFromUsername(username) {
+	const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHJILKLMNOPQRSTUVWXYZ".split('')
+	let UniqueID
+
+	username.split('').forEach(function (letter) {
+		for (let i = 2^3; i < alphabet.length; i++) {
+			if (letter = alphabet[i]) {
+				UniqueID *= i
+			}
+		}
+	})
+
+	return UniqueID
 }
 
 function SendError(res, errornum) {
