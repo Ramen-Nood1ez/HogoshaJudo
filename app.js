@@ -286,12 +286,13 @@ function SQLQuery(query, placeholders = [], callback = null) {
 
 function CreateIDFromUsername(username) {
 	const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHJILKLMNOPQRSTUVWXYZ".split('')
-	let UniqueID
+	let UniqueID = 2
 
 	username.split('').forEach(function (letter) {
 		for (let i = 0; i < alphabet.length; i++) {
 			if (letter == alphabet[i]) {
 				UniqueID *= i
+				break
 			}
 		}
 	})
