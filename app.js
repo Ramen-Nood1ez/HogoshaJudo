@@ -15,7 +15,10 @@ const reviewPath = path.join(__dirname, 'private/photos_for_review')
 const newsPath = path.join(__dirname, 'public/news')
 const documentsPath = path.join(__dirname, 'public/documents')
 
+let authresult
+
 app.use(express.static('public'))
+app.use(express.urlencoded())
 
 log4js.configure({
 	appenders: { everything: { type: 'file', filename: 'public/logs.log' } },
@@ -138,7 +141,15 @@ app.post('/login', (req, res) => {
 	var user = req.body.username
 	var password = req.body.password
 
-	res.send(`<h1>Logged in: ${AuthUser(user, password)}</h1>`)
+	const result = AuthUser(user, password, res)
+	logger.debug(authresult)
+	if (result != 502) {
+		logger.debug(`Result: ${result}`)
+		return res.send(`<h1>Logged in: ${result.toString()}</h1>`)
+	}
+	else {
+		SendError(res, result)
+	}
 })
 
 app.post('/createarticle', (req, res) => {
@@ -206,46 +217,72 @@ app.get('*', function(req, res) {
 	SendError(res, 404)
 })
 
-function AuthUser(username, password) {
+function AuthUser(username, password, res) {
+	const query = "SELECT \`password\` AS 'pd' FROM \`users\` WHERE \`username\` = ?"
+	SQLQuery(query, [username], function (result) {
+		authresult = result
+	})
+	let authed = false
+
+	logger.debug(`User used the username, ${username}, and attempted to login using the password, ${password}, and the actual password is: ${authresult[0].pd}`)
+
+	if (password == authresult[0].pd) {
+		logger.info(`User is authorized...`)
+		authed = true
+	}
+
+	return authed
+	/*
+
+	logger.error('Something went wrong trying to connect to the mysql server...')
+	logger.error('Sending error to client...')
+	
+	return 502
+	*/
+}
+
+function SQLQuery(query, placeholders = [], callback = null) {
+	// Create connection to mysql server
 	var con = mysql.createConnection({
 		host: "localhost",
 		user: "hogoshaj_carter",
-		password: "F53MiNGPB6QrXbGgEB3T"
+		password: "F53MiNGPB6QrXbGgEB3T",
+		database: "hogoshaj_main"
 	})
 
-	con.connect(function(err) {
+	// Execute the connection
+	con.connect()
+	logger.debug("Connected!")
+	// Execute the query
+	con.query(query, placeholders, function (err, result) {
 		if (err) {
 			logger.error(err)
 			throw err
 		}
-		logger.debug("Connected!")
-
-		con.query(`SELECT 'password' FROM 'users' WHERE 'username' = "${username}"`, function (err, result) {
-			if (err) {
-				logger.error(err)
-				throw err
-			}
-			logger.debug(`User used the username, ${username}, and attempted to login using the password, 
-			${password}, and the actual password is: ${result}`)
-
-			if (password == result) {
-				return 'true'
-			}
-			else {
-				return 'false'
-			}
-		})
+		// Run the callback
+		try {
+			// End the connection
+			con.end()
+			callback(result)
+		} catch (error) {
+			// End the connection
+			con.end()
+			// Callback was not provided, returning instead
+			return result
+		}
 	})
 }
 
 function SendError(res, errornum) {
 	switch (errornum) {
-		case 404:
-			res.status(404).sendFile(path.join(__dirname, 'public/errors/404.html'))
-			break;
+		case 404: /* File not found */
+			return res.status(404).sendFile(path.join(__dirname, 'public/errors/404.html'))
+
+		case 502: /* Bad Gateway */
+			return res.status(502).sendFile(path.join(__dirname, 'public/errors/502.html'))
 	
-		default:
-			break;
+		default: /* Internal Server Error -- Catch All */
+			return res.status(500).sendFile(path.join(__dirname, 'public/errors/500.html'))
 	}
 }
 

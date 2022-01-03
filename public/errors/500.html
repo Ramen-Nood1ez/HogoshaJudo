@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="error">
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,19 +10,14 @@
 		<script src="https://kit.fontawesome.com/8e00593c4c.js" crossorigin="anonymous"></script>
 		<title>Hogosha Judo</title>
 	</head>
-	<body style="text-align: center;">
-		<div  class="center">
-			<form method="post" action="/login" autocomplete="off">
-				<H1>Login</H1>
-				<input type="text" name="username" id="username" placeholder="username">
-				<br>
-				<input type="password" name="password" id="password" placeholder="password">
-				<br>
-				<input type="checkbox" name="rememberme" id="remember" placeholder="Remember Me">
-				<label for="remember">Remember Me</label>
-				<br>
-				<input type="submit" value="Submit">
-			</form>
+	<body class='error'>
+		<div style="display: flex; min-height: 10em; align-items: center;">
+			<div style="position: absolute; top: 50%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%);">
+				<h1 class="error">500</h1>
+				<h3 class="error">Internal Server Error</h3>
+				<p class="error">An unknown error has occurred</p>
+				<a href="/" class="error">Return Home</a>
+			</div>
 		</div>
 	</body>
 </html>
