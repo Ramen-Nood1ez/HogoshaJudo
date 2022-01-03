@@ -146,7 +146,7 @@ app.post('/login', (req, res) => {
 
 	if (rememberusername == "on") {
 		res.cookie(`username`, `${user}`, {
-			maxAge: new Date(Date.now() + (2.628 * 10^9)),
+			expires: new Date(Date.now() + (2.628 * 10^9)),
 			secure: true
 		})
 	}
@@ -290,7 +290,7 @@ function CreateIDFromUsername(username) {
 
 	username.split('').forEach(function (letter) {
 		for (let i = 2^3; i < alphabet.length; i++) {
-			if (letter = alphabet[i]) {
+			if (letter == alphabet[i]) {
 				UniqueID *= i
 			}
 		}
