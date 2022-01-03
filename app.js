@@ -296,6 +296,8 @@ function CreateIDFromUsername(username) {
 		}
 	})
 
+	logger.debug(UniqueID)
+
 	return UniqueID
 }
 
