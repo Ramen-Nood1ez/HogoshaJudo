@@ -136,6 +136,7 @@ app.get('/documents', (req, res) => {
 })
 
 app.get('/loginpage', (req, res) => {
+	if (req.cookies["loggedin"] == )
 	res.sendFile(path.join(__dirname, "public/login.html"))
 })
 
@@ -240,6 +241,12 @@ function AuthUser(username, password, res) {
 	if (password == authresult[0].pd) {
 		logger.info(`User is authorized...`)
 		authed = true
+
+		SQLQuery(`SELECT \`user_id\` AS 'uid' FROM \`users\` WHERE \`username\` = ?`, [username], function (userID) {
+			SQLQuery(`INSERT INTO \`user_token_map\` (userID, uniqueID) VALUES(${userID[0].uid}, ${RandomToken(256)})`)
+		})
+
+		
 	}
 
 	return authed
@@ -300,6 +307,17 @@ function CreateIDFromUsername(username) {
 	logger.debug(UniqueID)
 
 	return UniqueID
+}
+
+function RandomToken(bits) {
+	let token = ''
+	for (let i = 0; i < bits; i++) {
+		token += GetRandomInt(10).toString()
+	}
+}
+
+function GetRandomInt(max) {
+	return Math.floor(Math.random() * max)
 }
 
 function SendError(res, errornum) {
