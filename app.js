@@ -15,6 +15,8 @@ const reviewPath = path.join(__dirname, 'private/photos_for_review')
 const newsPath = path.join(__dirname, 'public/news')
 const documentsPath = path.join(__dirname, 'public/documents')
 
+let authresult
+
 app.use(express.static('public'))
 app.use(express.urlencoded())
 
@@ -215,41 +217,18 @@ app.get('*', function(req, res) {
 })
 
 function AuthUser(username, password, res) {
-	var con = mysql.createConnection({
-		host: "localhost",
-		user: "hogoshaj_carter",
-		password: "F53MiNGPB6QrXbGgEB3T",
-		database: "hogoshaj_main"
-	})
-
-	con.connect()
-	logger.debug("Connected!")
-
 	const query = "SELECT \`password\` AS 'pd' FROM \`users\` WHERE \`username\` = ?"
-
+	SQLQuery(query, [username], function (result) {
+		authresult = result
+	})
 	let authed = false
 
-	con.query(query, [username], function (err, result) {
-		if (err) {
-			logger.error(err)
-			throw err
-		}
-		logger.debug(`User used the username, ${username}, and attempted to login using the password, ${password}, and the actual password is: ${result[0].pd}`)
+	logger.debug(`User used the username, ${username}, and attempted to login using the password, ${password}, and the actual password is: ${authresult[0].pd}`)
 
-		if (password == result[0].pd) {
-			logger.info(`User is authorized...`)
-			authed = true
-		}
-
-		/*
-		if (password == result.toString()) {
-			return true
-		}
-		else {
-			return false
-		}
-		*/
-	})
+	if (password == authresult[0].pd) {
+		logger.info(`User is authorized...`)
+		authed = true
+	}
 
 	return authed
 	/*
@@ -259,6 +238,38 @@ function AuthUser(username, password, res) {
 	
 	return 502
 	*/
+}
+
+function SQLQuery(query, placeholders = [], callback = null) {
+	// Create connection to mysql server
+	var con = mysql.createConnection({
+		host: "localhost",
+		user: "hogoshaj_carter",
+		password: "F53MiNGPB6QrXbGgEB3T",
+		database: "hogoshaj_main"
+	})
+
+	// Execute the connection
+	con.connect()
+	logger.debug("Connected!")
+	// Execute the query
+	con.query(query, placeholders, function (err, result) {
+		if (err) {
+			logger.error(err)
+			throw err
+		}
+		// Run the callback
+		try {
+			// End the connection
+			con.end()
+			callback(result)
+		} catch (error) {
+			// End the connection
+			con.end()
+			// Callback was not provided, returning instead
+			return result
+		}
+	})
 }
 
 function SendError(res, errornum) {
