@@ -9,17 +9,8 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://kit.fontawesome.com/8e00593c4c.js" crossorigin="anonymous"></script>
 		<script> 
-			const monthnum = new Date().getUTCMonth();
 			$(function(){
-				$("#includedContent").load("navbar.html"); 
-			  	
-				if (!(monthnum == 11)) {
-					$("#eventmessage").css({
-						"visibility":"collapse",
-						"width":"0px",
-						"height":"0px"
-					})
-				}
+			  $("#includedContent").load("navbar.html"); 
 			});
 		</script> 
 		<title>Hogosha Judo</title>
@@ -31,7 +22,7 @@
 		
 		<!--h1>Hogosha Judo</h1-->
 
-		<div class="eventmessage" id="eventmessage">
+		<div class="eventmessage">
 			<img src="images/happyholidays.png">
 		</div>
 
@@ -52,14 +43,6 @@
 
 		<br>
 		<br>
-		<br>
-
-		<div id="Announcements">
-			<h1><b>Announcements</b></h1>
-			<h2>There have been changes to the rules for Judo, please check it out.</h2>
-			<a href="https://www.ijf.org/news/show/new-olympic-cycle-new-judo-rules" target="_blank" rel="noopener noreferrer">New rules</a>
-		</div>
-
 		<br>
 
 		<div class="parallax" style="background-image: url('images/mainjudopage3.jpg')"></div>
@@ -95,11 +78,11 @@
 
 		<h1>Contact Information:</h1>
 
-		<h2>Jerry L. Cypert - Supervising Instructor</h2>
-		<a href="tel:920-296-6451" class="normlink">(920) 296-6451</a>
-
 		<h2>Darlene Cypert - Head Instructor</h2>
 		<a href="tel:920-296-6452" class="normlink">(920) 296-6452</a>
+			
+		<h2>Jerry L. Cypert - Supervising Instructor</h2>
+		<a href="tel:920-296-6451" class="normlink">(920) 296-6451</a>
 
 		<hr class="thr">
 
