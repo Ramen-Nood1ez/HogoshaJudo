@@ -8,6 +8,7 @@ const sizeOf = require('image-size')
 const formidable = require("formidable")
 const mysql = require("mysql")
 const log4js = require("log4js")
+const cookieParser = require('cookie-parser')
 
 const morePhotosPath = path.join(__dirname, 'public/morephotos')
 const photosPath = path.join(__dirname, 'public/photos')
@@ -19,6 +20,7 @@ let authresult
 
 app.use(express.static('public'))
 app.use(express.urlencoded())
+app.use(cookieParser())
 
 log4js.configure({
 	appenders: { everything: { type: 'file', filename: 'public/logs.log' } },
@@ -134,17 +136,27 @@ app.get('/documents', (req, res) => {
 })
 
 app.get('/loginpage', (req, res) => {
+	if (req.cookies["loggedin"] == )
 	res.sendFile(path.join(__dirname, "public/login.html"))
 })
 
 app.post('/login', (req, res) => {
 	var user = req.body.username
 	var password = req.body.password
+	var rememberusername = req.body.rememberme
+
+	if (rememberusername == "on") {
+		res.cookie(`username`, `${user}`, {
+			expires: new Date(Date.now() + (2.628 * 10^9)),
+			secure: true
+		})
+	}
 
 	const result = AuthUser(user, password, res)
 	logger.debug(authresult)
 	if (result != 502) {
 		logger.debug(`Result: ${result}`)
+		res.cookie(`loggedin`, CreateIDFromUsername(user))
 		return res.send(`<h1>Logged in: ${result.toString()}</h1>`)
 	}
 	else {
@@ -229,6 +241,12 @@ function AuthUser(username, password, res) {
 	if (password == authresult[0].pd) {
 		logger.info(`User is authorized...`)
 		authed = true
+
+		SQLQuery(`SELECT \`user_id\` AS 'uid' FROM \`users\` WHERE \`username\` = ?`, [username], function (userID) {
+			SQLQuery(`INSERT INTO \`user_token_map\` (userID, uniqueID) VALUES(${userID[0].uid}, ${RandomToken(256)})`)
+		})
+
+		
 	}
 
 	return authed
@@ -271,6 +289,35 @@ function SQLQuery(query, placeholders = [], callback = null) {
 			return result
 		}
 	})
+}
+
+function CreateIDFromUsername(username) {
+	const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHJILKLMNOPQRSTUVWXYZ".split('')
+	let UniqueID = 2
+
+	username.split('').forEach(function (letter) {
+		for (let i = 0; i < alphabet.length; i++) {
+			if (letter == alphabet[i]) {
+				UniqueID *= i + 2
+				break
+			}
+		}
+	})
+
+	logger.debug(UniqueID)
+
+	return UniqueID
+}
+
+function RandomToken(bits) {
+	let token = ''
+	for (let i = 0; i < bits; i++) {
+		token += GetRandomInt(10).toString()
+	}
+}
+
+function GetRandomInt(max) {
+	return Math.floor(Math.random() * max)
 }
 
 function SendError(res, errornum) {
