@@ -1,4 +1,4 @@
-import "mysql"
+import "../node_modules/mysql"
 
 export function query(query, placeholders = [], callback = null) {
 	// Create connection to mysql server
