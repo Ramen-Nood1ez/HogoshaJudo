@@ -9,6 +9,7 @@ const formidable = require("formidable")
 const mysql = require("mysql")
 const log4js = require("log4js")
 const cookieParser = require('cookie-parser')
+const hostname = process.env.hostname ? process.env.hostname : 'localhost'
 
 const morePhotosPath = path.join(__dirname, 'public/morephotos')
 const photosPath = path.join(__dirname, 'public/photos')
@@ -338,7 +339,7 @@ function SendError(res, errornum) {
 	}
 }
 
-app.listen(port, () => {
+app.listen(port, hostname, () => {
 	logger.info(`Example app listening at http://localhost:${port}`)
 
 	// More photos
