@@ -18,9 +18,9 @@ const newsPath = path.join(__dirname, 'public/news')
 const documentsPath = path.join(__dirname, 'public/documents')
 
 // Local Modules
-const db = require("./modules/db.mjs")
+//const db = require("./modules/db.mjs")
 // Local Module Functions
-const query = db.query
+//const query = db.query
 
 let authresult
 
