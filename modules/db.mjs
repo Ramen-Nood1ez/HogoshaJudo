@@ -1,13 +1,13 @@
 import "../node_modules/mysql"
 
-export function query(query, placeholders = [], callback = null, constr = {
-	host: "localhost",
-	user: "hogoshaj_carter",
-	password: "F53MiNGPB6QrXbGgEB3T",
-	database: "hogoshaj_main"
-}) {
+export function query(query, placeholders = [], callback = null, constr = null) {
 	// Create connection to mysql server
-	var con = mysql.createConnection(constr)
+	var con = mysql.createConnection(constr ? constr : {
+		host: "localhost",
+		user: "hogoshaj_carter",
+		password: "F53MiNGPB6QrXbGgEB3T",
+		database: "hogoshaj_main"
+	})
 
 	// Execute the connection
 	con.connect()
