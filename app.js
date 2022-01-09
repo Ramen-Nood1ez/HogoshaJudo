@@ -343,6 +343,7 @@ function SendError(res, errornum) {
 app.listen(port, hostname, () => {
 	logger.info(`Hogosha Judo listening at http://${hostname}:${port}`)
 	logger.info(`In case the hostname doesn't work here is the env variable: ${process.env.hostname}`)
+	logger.info(`SQL Server database name: ${database}`)
 
 	// More photos
 	fs.writeFile("public/morephotostemplate.html", "", function (err) {
