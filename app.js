@@ -16,6 +16,11 @@ const reviewPath = path.join(__dirname, 'private/photos_for_review')
 const newsPath = path.join(__dirname, 'public/news')
 const documentsPath = path.join(__dirname, 'public/documents')
 
+// Local Modules
+const db = require("./modules/db.mjs")
+// Local Module Functions
+const query = db.query
+
 let authresult
 
 app.use(express.static('public'))
