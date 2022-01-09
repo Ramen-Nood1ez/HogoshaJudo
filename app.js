@@ -10,6 +10,7 @@ const mysql = require("mysql")
 const log4js = require("log4js")
 const cookieParser = require('cookie-parser')
 const hostname = process.env.hostname ? process.env.hostname : 'localhost'
+const database = process.env.database ? process.env.database : 'hogoshaj_main'
 
 const morePhotosPath = path.join(__dirname, 'public/morephotos')
 const photosPath = path.join(__dirname, 'public/photos')
@@ -271,7 +272,7 @@ function SQLQuery(query, placeholders = [], callback = null) {
 		host: "localhost",
 		user: "hogoshaj_carter",
 		password: "F53MiNGPB6QrXbGgEB3T",
-		database: "hogoshaj_main"
+		database: database
 	})
 
 	// Execute the connection
