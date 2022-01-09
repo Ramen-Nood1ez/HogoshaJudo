@@ -141,10 +141,8 @@ app.get('/documents', (req, res) => {
 })
 
 app.get('/loginpage', (req, res) => {
-	/*
-	if (req.cookies["loggedin"] == )
+	//if (req.cookies["loggedin"] == )
 	res.sendFile(path.join(__dirname, "public/login.html"))
-	*/
 })
 
 app.post('/login', (req, res) => {
