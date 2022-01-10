@@ -201,7 +201,7 @@ app.post('/addpicture', upload.single('file'), (req, res) => {
 	const user = req.body.userid
 	const userhash = req.body.userhash
 
-	if (!req.body.filename | !req.body.file) {
+	if (req.body.filename == "" | req.body.file == null) {
 		logger.info(`File name: ${filename}`)
 		SendError(res, 500)
 		return
