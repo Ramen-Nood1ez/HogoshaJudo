@@ -58,11 +58,14 @@ app.get('/log', (req, res) => {
 		<link rel='stylesheet' href='style.css'>
 		<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
 		<script>
-			window.scrollTo(0, document.body.scrollHeight)
+			$(document).ready(function () {
+				window.scrollTo(0, document.querySelector("scrollingcontainer").scrollHeight)
+			})
+			
 		</script>
 		<meta http-equiv='refresh' content='5'/>
 		</head>`
-		output += "\n<body>"
+		output += "\n<body class='scrollingcontainer'>"
 		var body = ""
 
 		if (err) {
