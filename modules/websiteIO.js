@@ -1,6 +1,7 @@
-const query = require('./db.mjs').query
+const db = require('./db')
+const query = db.query
 
-module.exports = function addPicture(creatorid, filename, file, description = '', autouse = false, constr = null) {
+module.exports.addPicture = (creatorid, filename, file, description = '', autouse = false, constr = null) => {
 	const creator = creatorid
 	const filepath = file
 	const desc = description
