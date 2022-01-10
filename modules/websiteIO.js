@@ -10,4 +10,6 @@ module.exports.addPicture = (creatorid, filename, file, description = '', autous
 					" + `(${creator}, ${filename}, ${filepath}, ${desc}, ${autouse ? '1': '0'})` 
 
 	query(sqlquery, null, null, constr)
+
+	return sqlquery
 }
