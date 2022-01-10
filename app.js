@@ -12,6 +12,7 @@ const cookieParser = require('cookie-parser')
 const hostname = process.env.hostname ? process.env.hostname : 'localhost'
 const database = process.env.database ? process.env.database : 'hogoshaj_main'
 const multer = require('multer')
+const { addPicture } = require('./modules/websiteIO.mjs')
 
 const morePhotosPath = path.join(__dirname, 'public/morephotos')
 const photosPath = path.join(__dirname, 'public/photos')
@@ -204,10 +205,13 @@ app.post('/addpicture', upload.single('file'), (req, res) => {
 
 	logger.info(`File name: ${filename}`)
 	logger.info(`Description: ${desc}`)
-	logger.info(`File: ${file}`)
-	logger.debug(`File name: ${file.name}`)
 
-	//addPicture(1, path.join(imagesPath, `${filename} - ${Date.now()}.jpg`))
+	addPicture(1, filename, path.join(imagesPath, `${filename}`), desc, false, {
+		host: "localhost",
+		user: "hogoshaj_carter",
+		password: "F53MiNGPB6QrXbGgEB3T",
+		database: database
+	})
 	res.send("<h1>Success!</h1> \n<h2>You'll be redirected to the home page</h2>\n<meta http-equiv='refresh' content='5; url=/'/>")
 })
 
