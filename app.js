@@ -57,6 +57,11 @@ app.get('/log', (req, res) => {
 		<link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon'>
 		<link rel='stylesheet' href='style.css'>
 		<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+		<script>
+			$(document).ready(function () {
+				$(document).scrollTop($(document).height())
+			})
+		</script>
 		<meta http-equiv='refresh' content='5'/>
 		</head>`
 		output += "\n<body>"
