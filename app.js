@@ -207,10 +207,6 @@ app.post('/addpicture', upload.single('file'), (req, res) => {
 		return
 	}
 
-	fs.writeFile(`public/stored_photos/`, `${year}-${fileindex}${fileextension}+${desc}`, function (err) {
-		if (err) throw err
-	})
-
 	upload(req, res, function (err) {
 		if (err) {
 			logger.error(err)
