@@ -1,4 +1,4 @@
-const mysql = require("../node_modules/mysql")
+const mysql = require("mysql")
 
 module.exports.query = (query, placeholders = [], callback = null, constr = null) => {
 	// Create connection to mysql server
