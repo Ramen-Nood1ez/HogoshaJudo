@@ -18,19 +18,21 @@
 	<body>
 		<div id="includedContent" class="topnav"></div>
 
-		<H1>Add Image</H1>
-		
-		<form action="/addimage" method="POST" autocomplete="off" enctype="multipart/form-data">
-			<input type="text" name="filename" id="filename" placeholder="Image Name">
-			<br>
-			<input type="file" name="file">
-			<br>
-			<input type="text" name="desc" placeholder="Image Description">
-			<br>
-			<input type="checkbox" name="autouse" id="autouse">
-			<label for="autouse">Put the picture on the pictures page?</label>
-			<br>
-			<input type="submit">
-		</form>
+		<div class="center">
+			<H1>Add Image</H1>
+			
+			<form action="/addpicture" method="POST" autocomplete="off" enctype="multipart/form-data">
+				<input type="text" name="filename" id="filename" placeholder="Image Name">
+				<br>
+				<input type="file" name="file">
+				<br>
+				<input type="text" name="desc" placeholder="Image Description">
+				<br>
+				<input type="checkbox" name="autouse" id="autouse">
+				<label for="autouse">Put the picture on the pictures page?</label>
+				<br>
+				<input type="submit">
+			</form>
+		</div>
 	</body>
 </html>
