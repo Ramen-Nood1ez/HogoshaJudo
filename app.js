@@ -11,19 +11,49 @@ const log4js = require("log4js")
 const cookieParser = require('cookie-parser')
 const hostname = process.env.hostname ? process.env.hostname : 'localhost'
 const database = process.env.database ? process.env.database : 'hogoshaj_main'
+const multer = require('multer')
 
 const morePhotosPath = path.join(__dirname, 'public/morephotos')
 const photosPath = path.join(__dirname, 'public/photos')
 const reviewPath = path.join(__dirname, 'private/photos_for_review')
 const newsPath = path.join(__dirname, 'public/news')
+const imagesPath = path.join(__dirname, 'public/stored_images')
 const documentsPath = path.join(__dirname, 'public/documents')
 
 // Local Modules
-//const db = require("./modules/db.mjs")
+const db = require("./modules/db.mjs")
+const webIO = require("./modules/websiteIO.mjs")
+const { create } = require('domain')
 // Local Module Functions
-//const query = db.query
+const query = db.query
+const createPicture = webIO.addPicture
 
 let authresult
+
+var storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, imagesPath)
+	},
+	filename: function (req, file, cb) {
+		cb(null, file.fieldname + '-', Date.now()+".jpg")
+	}
+})
+
+var upload = multer({
+	storage: storage,
+	fileFilter: function (req, file, cb) {
+		const filetypes = /jpeg|jpg|png/
+		const mimetype = filetypes.test(file.mimetype)
+
+		const extname = filetypes.test(paht.extname(file.originalname).toLowerCase())
+
+		if (mimetype && extname) {
+			return cb(null, true)
+		}
+
+		cb("Error: File upload only supports the following file types - " + filetypes)
+	}
+}).single(file)
 
 app.use(express.static('public'))
 app.use(express.urlencoded())
@@ -172,11 +202,42 @@ app.post('/login', (req, res) => {
 })
 
 app.post('/createarticle', (req, res) => {
-	var title = req.query.title
-	var desc = req.query.desc
-	var content = req.query.content
+	const title = req.body.title
+	const desc = req.body.desc
+	const content = req.body.content
+	const user = req.body.userid
+	const userhash = req.body.userveri
 
 	
+	
+})
+
+app.post('/addpicture', (req, res) => {
+	if (!req.body.title | !req.body.file) {
+		SendError(res, 500)
+		return
+	}
+	const filename = req.body.filename
+	const desc = req.body.desc ? req.body.desc : ''
+	const file = req.body.file
+	const user = req.body.userid
+	const userhash = req.body.userhash
+
+	fs.writeFile(`public/stored_photos/`, `${year}-${fileindex}${fileextension}+${desc}`, function (err) {
+		if (err) throw err
+	})
+
+	upload(req, res, function (err) {
+		if (err) {
+			logger.error(err)
+			res.send(err)
+		}
+		else {
+			res.send("Success, Image Uploaded!")
+		}
+	})
+
+	//createPicture(1, path.join(imagesPath, `${filename} - ${Date.now()}.jpg`))
 })
 
 app.post('/fileupload', (req, res) => {

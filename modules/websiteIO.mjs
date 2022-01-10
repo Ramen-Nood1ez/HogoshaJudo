@@ -1,6 +1,6 @@
 import { query } from './db.mjs';
 
-function addPicture(creatorid, file, description = '', autouse = false, constr = null) {
+export function addPicture(creatorid, file, description = '', autouse = false, constr = null) {
 	const creator = creatorid
 	const filepath = file
 	const desc = description
