@@ -25,7 +25,7 @@ module.exports.query = (query, placeholders = [], callback = null, constr = null
 			// End the connection
 			con.end()
 			// Callback was not provided, returning instead
-			return result
+			return result.toString()
 		}
 	})
 }
