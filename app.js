@@ -22,8 +22,8 @@ const documentsPath = path.join(__dirname, 'public/documents')
 
 
 // Local Modules
-const db = await import("./modules/db.mjs")
-const webIO = await import("./modules/websiteIO.mjs")
+const db = require("./modules/db")
+const webIO = require("./modules/websiteIO")
 // Local Module Functions
 const query = db.query
 const addPicture = webIO.addPicture
