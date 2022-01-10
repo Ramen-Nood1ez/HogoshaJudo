@@ -201,22 +201,6 @@ app.post('/addpicture', upload.single('file'), (req, res) => {
 	const user = req.body.userid
 	const userhash = req.body.userhash
 
-	if (req.body.filename == "" | req.body.file == null) {
-		logger.info(`File name: ${filename}`)
-		SendError(res, 500)
-		return
-	}
-
-	upload(req, res, function (err) {
-		if (err) {
-			logger.error(err)
-			res.send(err)
-		}
-		else {
-			res.send("Success, Image Uploaded!")
-		}
-	})
-
 	logger.info(`File name: ${filename}`)
 	logger.info(`Description: ${desc}`)
 
