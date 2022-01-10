@@ -7,7 +7,7 @@ module.exports.addPicture = (creatorid, filename, file, description = '', autous
 	const desc = description
 
 	const sqlquery = "INSERT INTO `pictures` (`uploader`, `filename`, `file`, `description`, `autouse`) VALUES \
-					" + `(${creator}, ${filename}, ${filepath}, ${desc}, ${autouse ? '1': '0'})` 
+					" + `(${creator}, '${filename}', '${filepath}', '${desc}', ${autouse ? '1': '0'})` 
 
 	query(sqlquery, null, null, constr)
 
