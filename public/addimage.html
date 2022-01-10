@@ -24,7 +24,7 @@
 			<form action="/addpicture" method="POST" autocomplete="off" enctype="multipart/form-data">
 				<input type="text" name="filename" id="filename" placeholder="Image Name">
 				<br>
-				<input type="file" name="file">
+				<input type="file" name="file" onchange="changed()" id="file">
 				<br>
 				<input type="text" name="desc" placeholder="Image Description">
 				<br>
@@ -35,4 +35,10 @@
 			</form>
 		</div>
 	</body>
+
+	<script>
+		function changed() {
+			$("#filename").val($("#file").val())
+		}
+	</script>
 </html>
