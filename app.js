@@ -58,9 +58,7 @@ app.get('/log', (req, res) => {
 		<link rel='stylesheet' href='style.css'>
 		<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
 		<script>
-			$(document).ready(function () {
-				$(document).scrollTop($(document).height())
-			})
+			window.scrollTo(0, document.body.scrollHeight)
 		</script>
 		<meta http-equiv='refresh' content='5'/>
 		</head>`
