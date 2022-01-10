@@ -195,16 +195,17 @@ app.post('/createarticle', (req, res) => {
 })
 
 app.post('/addpicture', upload.single('file'), (req, res) => {
-	if (!req.body.filename | !req.body.file) {
-		logger.info(`File name: ${filename}`)
-		SendError(res, 500)
-		return
-	}
 	const filename = req.body.filename
 	const desc = req.body.desc ? req.body.desc : ''
 	const file = req.body.file
 	const user = req.body.userid
 	const userhash = req.body.userhash
+
+	if (!req.body.filename | !req.body.file) {
+		logger.info(`File name: ${filename}`)
+		SendError(res, 500)
+		return
+	}
 
 	fs.writeFile(`public/stored_photos/`, `${year}-${fileindex}${fileextension}+${desc}`, function (err) {
 		if (err) throw err
