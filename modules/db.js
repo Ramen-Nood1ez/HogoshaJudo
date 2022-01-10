@@ -12,7 +12,7 @@ module.exports.query = (query, placeholders = [], callback = null, constr = null
 	// Execute the connection
 	con.connect()
 	// Execute the query
-	con.query(query, [placeholders], function (err, result) {
+	con.query(query, placeholders, function (err, result) {
 		if (err) {
 			throw err
 		}
