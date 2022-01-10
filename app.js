@@ -21,10 +21,11 @@ const imagesPath = path.join(__dirname, 'public/stored_photos')
 const documentsPath = path.join(__dirname, 'public/documents')
 
 // Local Modules
+const db = require("./modules/db.mjs")
 const webIO = require("./modules/websiteIO.mjs")
 // Local Module Functions
-import { query } from "./modules/db.mjs"
-import { addPicture } from "./modules/websiteIO.mjs"
+const query = db.query
+const addPicture = webIO.addPicture
 
 let authresult
 
