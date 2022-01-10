@@ -52,7 +52,7 @@ var upload = multer({
 
 		cb("Error: File upload only supports the following file types - " + filetypes)
 	}
-}).single(file)
+}).single('file')
 
 app.use(express.static('public'))
 app.use(express.urlencoded())
