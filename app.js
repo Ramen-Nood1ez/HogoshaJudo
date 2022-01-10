@@ -204,6 +204,8 @@ app.post('/addpicture', upload.single('file'), (req, res) => {
 
 	logger.info(`File name: ${filename}`)
 	logger.info(`Description: ${desc}`)
+	logger.info(`File: ${file}`)
+	logger.debug(`File name: ${file.name}`)
 
 	//addPicture(1, path.join(imagesPath, `${filename} - ${Date.now()}.jpg`))
 	res.send("<h1>Success!</h1> \n<h2>You'll be redirected to the home page</h2>\n<meta http-equiv='refresh' content='5; url=/'/>")
