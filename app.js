@@ -20,13 +20,14 @@ const newsPath = path.join(__dirname, 'public/news')
 const imagesPath = path.join(__dirname, 'public/stored_photos')
 const documentsPath = path.join(__dirname, 'public/documents')
 
+/*
 // Local Modules
 const db = require("./modules/db.mjs")
 const webIO = require("./modules/websiteIO.mjs")
 // Local Module Functions
 const query = db.query
 const addPicture = webIO.addPicture
-
+*/
 let authresult
 
 
