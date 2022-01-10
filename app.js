@@ -116,6 +116,10 @@ app.get("/morephotos", (req, res) => {
 	res.send('<meta http-equiv="refresh" content="0;url=/morephotos.html" />')
 })
 
+app.get("/addpicturepage", (req, res) => {
+	res.send('<meta http-equiv="refresh" content="0;url=/addimage.html"/>')
+})
+
 app.get("/contact", (req, res) => {
 	res.sendFile(path.join(__dirname, 'public/contact.html'))
 })
