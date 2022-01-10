@@ -17,7 +17,7 @@ const morePhotosPath = path.join(__dirname, 'public/morephotos')
 const photosPath = path.join(__dirname, 'public/photos')
 const reviewPath = path.join(__dirname, 'private/photos_for_review')
 const newsPath = path.join(__dirname, 'public/news')
-const imagesPath = path.join(__dirname, 'public/stored_images')
+const imagesPath = path.join(__dirname, 'public/stored_photos')
 const documentsPath = path.join(__dirname, 'public/documents')
 
 // Local Modules
