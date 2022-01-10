@@ -195,7 +195,7 @@ app.post('/createarticle', (req, res) => {
 })
 
 app.post('/addpicture', upload.single('file'), (req, res) => {
-	if (!req.body.title | !req.body.file) {
+	if (!req.body.filename | !req.body.file) {
 		SendError(res, 500)
 		return
 	}
