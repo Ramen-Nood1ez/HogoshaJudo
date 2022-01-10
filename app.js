@@ -21,12 +21,10 @@ const imagesPath = path.join(__dirname, 'public/stored_photos')
 const documentsPath = path.join(__dirname, 'public/documents')
 
 // Local Modules
-const db = require("./modules/db.mjs")
 const webIO = require("./modules/websiteIO.mjs")
-const { create } = require('domain')
 // Local Module Functions
-const query = db.query
-const createPicture = webIO.addPicture
+import { query } from "./modules/db.mjs"
+import { addPicture } from "./modules/websiteIO.mjs"
 
 let authresult
 
@@ -237,7 +235,7 @@ app.post('/addpicture', (req, res) => {
 		}
 	})
 
-	//createPicture(1, path.join(imagesPath, `${filename} - ${Date.now()}.jpg`))
+	//addPicture(1, path.join(imagesPath, `${filename} - ${Date.now()}.jpg`))
 })
 
 app.post('/fileupload', (req, res) => {
