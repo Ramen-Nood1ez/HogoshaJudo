@@ -29,30 +29,8 @@ const addPicture = webIO.addPicture
 
 let authresult
 
-var storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		cb(null, imagesPath)
-	},
-	filename: function (req, file, cb) {
-		cb(null, file.fieldname + '-', Date.now()+".jpg")
-	}
-})
 
-var upload = multer({
-	storage: storage,
-	fileFilter: function (req, file, cb) {
-		const filetypes = /jpeg|jpg|png/
-		const mimetype = filetypes.test(file.mimetype)
-
-		const extname = filetypes.test(paht.extname(file.originalname).toLowerCase())
-
-		if (mimetype && extname) {
-			return cb(null, true)
-		}
-
-		cb("Error: File upload only supports the following file types - " + filetypes)
-	}
-}).single('file')
+const upload = multer({ dest: imagesPath })
 
 app.use(express.static('public'))
 app.use(express.urlencoded())
@@ -211,7 +189,7 @@ app.post('/createarticle', (req, res) => {
 	
 })
 
-app.post('/addpicture', (req, res) => {
+app.post('/addpicture', upload.single('file'), (req, res) => {
 	if (!req.body.title | !req.body.file) {
 		SendError(res, 500)
 		return
