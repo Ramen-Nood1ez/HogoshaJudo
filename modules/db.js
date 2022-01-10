@@ -1,6 +1,6 @@
 const mysql = require("../node_modules/mysql")
 
-function query(query, placeholders = [], callback = null, constr = null) {
+module.exports = function query(query, placeholders = [], callback = null, constr = null) {
 	// Create connection to mysql server
 	var con = mysql.createConnection(constr ? constr : {
 		host: "localhost",
@@ -29,5 +29,3 @@ function query(query, placeholders = [], callback = null, constr = null) {
 		}
 	})
 }
-
-export { query }

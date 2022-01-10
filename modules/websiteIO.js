@@ -1,6 +1,6 @@
 const query = require('./db.mjs').query
 
-function addPicture(creatorid, filename, file, description = '', autouse = false, constr = null) {
+module.exports = function addPicture(creatorid, filename, file, description = '', autouse = false, constr = null) {
 	const creator = creatorid
 	const filepath = file
 	const desc = description
@@ -9,5 +9,3 @@ function addPicture(creatorid, filename, file, description = '', autouse = false
 
 	query(sqlquery, [creator, filename, filepath, desc, autouse ? '1' : '0'], null, constr)
 }
-
-export { addPicture }
