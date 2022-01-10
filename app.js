@@ -117,7 +117,7 @@ app.get("/morephotos", (req, res) => {
 })
 
 app.get("/addpicturepage", (req, res) => {
-	res.send('<meta http-equiv="refresh" content="0;url=/addimage.html"/>')
+	res.sendFile(path.join(__dirname, 'public/addimage.html'))
 })
 
 app.get("/contact", (req, res) => {
@@ -218,6 +218,9 @@ app.post('/addpicture', upload.single('file'), (req, res) => {
 			res.send("Success, Image Uploaded!")
 		}
 	})
+
+	logger.info(`File name: ${filename}`)
+	logger.info(`Description: ${desc}`)
 
 	//addPicture(1, path.join(imagesPath, `${filename} - ${Date.now()}.jpg`))
 })
