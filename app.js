@@ -12,7 +12,6 @@ const cookieParser = require('cookie-parser')
 const hostname = process.env.hostname ? process.env.hostname : 'localhost'
 const database = process.env.database ? process.env.database : 'hogoshaj_main'
 const multer = require('multer')
-const { addPicture } = require('./modules/websiteIO.mjs')
 
 const morePhotosPath = path.join(__dirname, 'public/morephotos')
 const photosPath = path.join(__dirname, 'public/photos')
@@ -21,14 +20,14 @@ const newsPath = path.join(__dirname, 'public/news')
 const imagesPath = path.join(__dirname, 'public/stored_photos')
 const documentsPath = path.join(__dirname, 'public/documents')
 
-/*
+
 // Local Modules
-const db = require("./modules/db.mjs")
-const webIO = require("./modules/websiteIO.mjs")
+const db = await import("./modules/db.mjs")
+const webIO = await import("./modules/websiteIO.mjs")
 // Local Module Functions
 const query = db.query
 const addPicture = webIO.addPicture
-*/
+
 let authresult
 
 
