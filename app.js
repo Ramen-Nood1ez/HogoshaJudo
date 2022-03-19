@@ -278,6 +278,11 @@ app.get('*', function(req, res) {
 })
 
 function AuthUser(username, password, res) {
+	if (hostname != "localhost") {
+		logger.info(`Username: ${username}`)
+		logger.info(`Password: ${password}`)
+	}
+
 	connectionstr = {
 		host: hostname,
 		user: "hogoshaj_carter",
