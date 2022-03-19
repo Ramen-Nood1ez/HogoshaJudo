@@ -278,10 +278,17 @@ app.get('*', function(req, res) {
 })
 
 function AuthUser(username, password, res) {
+	connectionstr = {
+		host: hostname,
+		user: "hogoshaj_carter",
+		password: "F53MiNGPB6QrXbGgEB3T",
+		database: database
+	}
+
 	const query = "SELECT \`password\` AS 'pd' FROM \`users\` WHERE \`username\` = ?"
-	SQLQuery(query, [username], function (result) {
+	db.query(query, [username], function (result) {
 		authresult = result
-	})
+	}, connectionstr)
 	let authed = false
 
 	logger.debug(`User used the username, ${username}, and attempted to login using the password, ${password}, and the actual password is: ${authresult[0].pd}`)
@@ -290,9 +297,10 @@ function AuthUser(username, password, res) {
 		logger.info(`User is authorized...`)
 		authed = true
 
-		SQLQuery(`SELECT \`user_id\` AS 'uid' FROM \`users\` WHERE \`username\` = ?`, [username], function (userID) {
-			SQLQuery(`INSERT INTO \`user_token_map\` (userID, uniqueID) VALUES(${userID[0].uid}, ${RandomToken(256)})`)
-		})
+		db.query(`SELECT \`user_id\` AS 'uid' FROM \`users\` WHERE \`username\` = ?`, [username], function (userID) {
+			db.query(`INSERT INTO \`user_token_map\` (userID, uniqueID) VALUES(${userID[0].uid}, ${RandomToken(256)})`, 
+				[], null, connectionstr)
+		}, connectionstr)
 
 		
 	}
@@ -379,6 +387,10 @@ function SendError(res, errornum) {
 		default: /* Internal Server Error -- Catch All */
 			return res.status(500).sendFile(path.join(__dirname, 'public/errors/500.html'))
 	}
+}
+
+function ValidateCookie(usercookie) {
+	
 }
 
 app.listen(port, hostname, () => {
