@@ -285,6 +285,9 @@ function AuthUser(username, password, res) {
 		database: database
 	}
 
+	logger.info(`Here is the connection string: `)
+	logger.info(`${connectionstr}`)
+
 	const query = "SELECT \`password\` AS 'pd' FROM \`users\` WHERE \`username\` = ?"
 	db.query(query, [username], function (result) {
 		authresult = result
