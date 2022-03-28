@@ -167,7 +167,7 @@ app.get('/loginpage', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-	var user = req.body.username
+	var user = req.body.username ? req.body.username : "RAMEN the NOODLES"
 	var password = req.body.password
 	var rememberusername = req.body.rememberme
 	var user_token = req.body.idtoken
