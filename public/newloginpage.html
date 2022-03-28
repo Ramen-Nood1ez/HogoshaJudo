@@ -27,9 +27,8 @@
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 				xhr.onload = function() {
 					console.log('Signed in as: ' + xhr.responseText)
-					if (xhr.reponseText == 'true') {
-						$("body").html(`<meta http-equiv='refresh' content='2; url=${redirect}'/>`)
-					}
+					$("body").html(`<meta http-equiv='refresh' content='2; url=${redirect}'/>`)
+					
 					//$("body").html(xhr.responseText)
 				}
 				xhr.send('idtoken=' + id);
