@@ -25,7 +25,7 @@
 				xhr.onload = function() {
 					console.log('Signed in as: ' + xhr.responseText)
 				}
-				xhr.send('idtoken=' + id_token + '&username=' + profile.getName());
+				xhr.send('idtoken=' + id_token);
 			}
 			function signOut() {
 				var auth2 = gapi.auth2.getAuthInstance();
