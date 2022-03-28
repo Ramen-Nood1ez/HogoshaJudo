@@ -172,6 +172,8 @@ app.post('/login', (req, res) => {
 	var rememberusername = req.body.rememberme
 	var user_token = req.body.idtoken
 
+	logger.debug(`Id Token: ${user_token}`)
+
 	if (rememberusername == "on") {
 		res.cookie(`username`, `${user}`, {
 			expires: new Date(Date.now() + (2.628 * 10^9)),
