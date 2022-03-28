@@ -186,7 +186,7 @@ app.post('/login', (req, res) => {
 		return res.send(`<h1>Logged in: ${result.toString()}</h1>`)
 	}
 	else {
-		result = AuthUser(user, user_token ? toString(user_token) : password, res)
+		result = AuthUser(user, user_token ? user_token.toString() : password, res)
 	}
 	
 	logger.debug(result)
