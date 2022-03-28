@@ -189,7 +189,7 @@ app.post('/login', (req, res) => {
 		return res.send(`<h1>Logged in: ${result.toString()}</h1>`)
 	}
 	else {
-		SendError(res, result ? result : 500)
+		SendError(res, result)
 	}
 })
 
