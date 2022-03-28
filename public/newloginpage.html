@@ -12,6 +12,8 @@
 		<script src="https://kit.fontawesome.com/8e00593c4c.js" crossorigin="anonymous"></script>
 		<script> 
 			function onSignIn(googleUser) {
+				const urlParams = new URLSearchParams(window.location.search);
+				const redirect = urlParams.get('redirect');
 				var profile = googleUser.getBasicProfile();
 				var id = profile.getId();
 				console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -25,6 +27,9 @@
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 				xhr.onload = function() {
 					console.log('Signed in as: ' + xhr.responseText)
+					if (xhr.reponseText == 'true') {
+						$("body").html(`<meta http-equiv='refresh' content='2; url=${redirect}'/>`)
+					}
 					$("body").html(xhr.responseText)
 				}
 				xhr.send('idtoken=' + id);

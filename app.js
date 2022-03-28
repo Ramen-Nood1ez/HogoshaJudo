@@ -181,9 +181,9 @@ app.post('/login', (req, res) => {
 		})
 	}
 	let result
-	if (user_token == "test"){//"103853922875279881687" | user_token == 103853922875279881687n) {
+	if (user_token == "103853922875279881687" | user_token == 103853922875279881687n) {
 		result = true
-		return res.send(`<h1>Logged in: ${result.toString()}</h1>`)
+		return res.send(`${result.toString()}`)
 	}
 	else {
 		result = AuthUser(user, user_token ? user_token.toString() : password, res)
