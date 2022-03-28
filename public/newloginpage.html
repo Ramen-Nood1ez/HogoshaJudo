@@ -30,7 +30,7 @@
 					if (xhr.reponseText == 'true') {
 						$("body").html(`<meta http-equiv='refresh' content='2; url=${redirect}'/>`)
 					}
-					$("body").html(xhr.responseText)
+					//$("body").html(xhr.responseText)
 				}
 				xhr.send('idtoken=' + id);
 			}
