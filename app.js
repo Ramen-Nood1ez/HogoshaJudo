@@ -338,17 +338,22 @@ function AuthUser(username, password, res) {
 	})//, connectionstr)
 	let authed = false
 
+	logger.info(`Authresult: ${authresult}`)
+
 	logger.debug(`User used the username, ${username}, and attempted to login using the password, ${password}, and the actual password is: ${authresult[0].pd}`)
 
 	if (password == authresult[0].pd) {
 		logger.info(`User is authorized...`)
 		authed = true
 
+		//SQLQuery(`SELECT \`user_id\` AS 'uid' FROM \`users\` WHERE \`username\` = ?`, [username], null)//, connectionstr)
+
+		/*
 		SQLQuery(`SELECT \`user_id\` AS 'uid' FROM \`users\` WHERE \`username\` = ?`, [username], function (userID) {
 			SQLQuery(`INSERT INTO \`user_token_map\` (userID, uniqueID) VALUES(${userID[0].uid}, ${RandomToken(256)})`, 
 				[], null)//, connectionstr)
 		})//, connectionstr)
-
+		*/
 		
 	}
 
