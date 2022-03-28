@@ -398,6 +398,7 @@ function SQLQuery(query, placeholders = [], callback = null) {
 		try {
 			// End the connection
 			con.end()
+			authresult = result
 			callback(result)
 		} catch (error) {
 			// End the connection
