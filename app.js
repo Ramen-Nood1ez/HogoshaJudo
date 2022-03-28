@@ -170,6 +170,7 @@ app.post('/login', (req, res) => {
 	var user = req.body.username
 	var password = req.body.password
 	var rememberusername = req.body.rememberme
+	var user_token = req.body.idtoken
 
 	if (rememberusername == "on") {
 		res.cookie(`username`, `${user}`, {
@@ -178,7 +179,7 @@ app.post('/login', (req, res) => {
 		})
 	}
 
-	const result = AuthUser(user, password, res)
+	const result = AuthUser(user, user_token ? user_token : password, res)
 	logger.debug(authresult)
 	if (result != 502) {
 		logger.debug(`Result: ${result}`)
@@ -276,6 +277,42 @@ app.post('/fileupload', (req, res) => {
 app.get('*', function(req, res) {
 	SendError(res, 404)
 })
+
+function AuthUserWithToken(tokenid, res) {
+	connectionstr = {
+		host: hostname,
+		user: "hogoshaj_carter",
+		password: "F53MiNGPB6QrXbGgEB3T",
+		database: database
+	}
+
+	logger.info(`Here is the connection string: `)
+	logger.info(`host: ${connectionstr["host"]}`)
+	logger.info(`user: ${connectionstr["user"]}`)
+	logger.info(`password: ${connectionstr["password"]}`)
+
+	const query = "SELECT \`password\` AS 'pd' FROM \`users\` WHERE \`username\` = ?"
+	db.query(query, [username], function (result) {
+		authresult = result
+	}, connectionstr)
+	let authed = false
+
+	logger.debug(`User used the username, ${username}, and attempted to login using the password, ${password}, and the actual password is: ${authresult[0].pd}`)
+
+	if (password == authresult[0].pd) {
+		logger.info(`User is authorized...`)
+		authed = true
+
+		db.query(`SELECT \`user_id\` AS 'uid' FROM \`users\` WHERE \`username\` = ?`, [username], function (userID) {
+			db.query(`INSERT INTO \`user_token_map\` (userID, uniqueID) VALUES(${userID[0].uid}, ${RandomToken(256)})`, 
+				[], null, connectionstr)
+		}, connectionstr)
+
+		
+	}
+
+	return authed
+} 
 
 function AuthUser(username, password, res) {
 	if (hostname != "localhost") {
