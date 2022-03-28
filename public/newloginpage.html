@@ -22,9 +22,9 @@
 				var xhr = new XMLHttpRequest();
 				xhr.open('POST', 'https://testing.hogoshajudo.org/login');
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-				xhr.onload(function() {
+				xhr.onload = function() {
 					console.log('Signed in as: ' + xhr.responseText)
-				})
+				}
 				xhr.send('idtoken=' + id_token);
 			}
 			function signOut() {
