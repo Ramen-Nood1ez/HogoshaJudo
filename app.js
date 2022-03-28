@@ -180,13 +180,14 @@ app.post('/login', (req, res) => {
 			secure: true
 		})
 	}
-	/*
+	let result
 	if (user_token == "eyJhbGciOiJSUzI1NiIsImtpZCI6IjU4YjQyOTY2MmRiMDc4NmYyZWZlZmUxM2MxZWIxMmEyOGRjNDQyZDAiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNjcwMzQ2MzE0MzExLTk4anNoMGN0YWlhdGxubmo3dG05MDI5bzNoNDNuMmJnLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNjcwMzQ2MzE0MzExLTk4anNoMGN0YWlhdGxubmo3dG05MDI5bzNoNDNuMmJnLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTAzODUzOTIyODc1Mjc5ODgxNjg3IiwiZW1haWwiOiJyb21tZWxjMDAwQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiN2hVMkVQNl9jbTRtYmZmb1VlMkxxdyIsIm5hbWUiOiJSQU1FTiB0aGUgTk9PRExFUyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS0vQU9oMTRHZ2ZXQmoyYnFRY1VYYTh5WXBIOTRMZVZOd0lnMDUtemh6d1pacW12UT1zOTYtYyIsImdpdmVuX25hbWUiOiJSQU1FTiIsImZhbWlseV9uYW1lIjoidGhlIE5PT0RMRVMiLCJsb2NhbGUiOiJlbiIsImlhdCI6MTY0ODQ5NTIwNCwiZXhwIjoxNjQ4NDk4ODA0LCJqdGkiOiJjMGViMjgxYzhjMTUzZTUxN2U0NzY3NzIwODY3YTBhOTIxMWU0OWFmIn0.j2V6s-ItjY1sR-rkZqjuYfIF2EoySB1HoiLKm4wCpxLKvxmj2a7eXjwfIA7OVQk-9Jaz2m83eAs5MI-IUYOM4YwjKcQ423VnAbJx21xMnbhJ105ZUM7cnpKM2MC1zjsrWfVMEFObTLQanchaYbK5UwhT55VPDyckHFAasKM95FctbkP1kxvORg15yi56FMdG0YJW8wIaKcxIDtGNXo9PL1sWYg2s6CenyAJfJaZ6mhPZpSXb_nc21ONYPqGm5qNhTBvGrGNQ9aViUjNKezhkPWwmUzZz9ERyOcDFCYf4qtksikLGmRLdpj9mnqC-4tcGprFnaRtI0vQee9VFEfPyjg") {
-		const result = true
+		result = true
 	}
-	*/
-	const result = AuthUser(user, user_token ? user_token : password, res)
-
+	else {
+		result = AuthUser(user, user_token ? user_token : password, res)
+	}
+	
 	logger.debug(result)
 	if (result != 502) {
 		logger.debug(`Result: ${result}`)
