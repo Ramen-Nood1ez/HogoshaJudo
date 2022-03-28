@@ -333,9 +333,9 @@ function AuthUser(username, password, res) {
 	logger.info(`password: ${connectionstr["password"]}`)
 
 	const query = "SELECT \`password\` AS 'pd' FROM \`users\` WHERE \`username\` = ?"
-	db.query(query, [username], function (result) {
+	SQLQuery(query, [username], function (result) {
 		authresult = result
-	}, connectionstr)
+	})//, connectionstr)
 	let authed = false
 
 	logger.debug(`User used the username, ${username}, and attempted to login using the password, ${password}, and the actual password is: ${authresult[0].pd}`)
@@ -344,10 +344,10 @@ function AuthUser(username, password, res) {
 		logger.info(`User is authorized...`)
 		authed = true
 
-		db.query(`SELECT \`user_id\` AS 'uid' FROM \`users\` WHERE \`username\` = ?`, [username], function (userID) {
-			db.query(`INSERT INTO \`user_token_map\` (userID, uniqueID) VALUES(${userID[0].uid}, ${RandomToken(256)})`, 
-				[], null, connectionstr)
-		}, connectionstr)
+		SQLQuery(`SELECT \`user_id\` AS 'uid' FROM \`users\` WHERE \`username\` = ?`, [username], function (userID) {
+			SQLQuery(`INSERT INTO \`user_token_map\` (userID, uniqueID) VALUES(${userID[0].uid}, ${RandomToken(256)})`, 
+				[], null)//, connectionstr)
+		})//, connectionstr)
 
 		
 	}
@@ -365,7 +365,7 @@ function AuthUser(username, password, res) {
 function SQLQuery(query, placeholders = [], callback = null) {
 	// Create connection to mysql server
 	var con = mysql.createConnection({
-		host: "localhost",
+		host: hostname,
 		user: "hogoshaj_carter",
 		password: "F53MiNGPB6QrXbGgEB3T",
 		database: database
